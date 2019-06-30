@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
-    <title>DOPANG</title>
+    <title>Desa Dopang</title>
   </head>
   <body>
 
@@ -62,9 +62,9 @@
           </span>
         </a>
         <div class="dropdown-menu speech-bubble" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">DAFTAR</a>
+          <a class="dropdown-item" href="{{url('/profildesadaftar')}}">DAFTAR</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">LOGIN</a>
+          <a class="dropdown-item" href="{{url('/profildesa')}}">LOGIN</a>
         </div>
       </li>
     </ul>
@@ -124,7 +124,7 @@
       </div>
       <div class="col-md-6">
         <h1>SELAYANG PANDANG</h1>
-        <p>DOPANG adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
+        <p>Desa Dopang adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
         <a href="{{ url('/profildesa') }}">PROFIL DESA</a>
       </div>
     </div>

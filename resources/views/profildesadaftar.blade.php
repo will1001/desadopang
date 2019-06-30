@@ -63,11 +63,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 text-center">
-                <div class="kotaklogin">
+                <div class="kotakdaftar">
                   <form method="POST" action="{{ route('login') }}">
                   @csrf
                       <div class="formemail">
-                        <input id="email"  placeholder="Masukan Email/NIK" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                        <input id="email"  placeholder="Nama" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
@@ -77,7 +77,47 @@
                       </div>
 
                       <div class="formpassword">
-                        <input id="password"  placeholder="Masukan Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                        <input id="password"  placeholder="Nomor KK" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                      </div>
+
+                      <div class="formpassword">
+                        <input id="password"  placeholder="{{ __('Password') }}" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                      </div>
+
+                      <div class="formpassword">
+                        <input id="password"  placeholder="{{ __('Confirm Password') }}" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                      </div>
+
+                      <div class="formpassword">
+                        <input id="password"  placeholder="No HP" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                      </div>
+
+                      <div class="formpassword">
+                        <input id="password"  placeholder="Alamat" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
@@ -94,8 +134,8 @@
                   </form>
                     </div>
                   <div class="noteloginform">
-                    <p>Belum Punya Akun??</p>
-                  <a href="{{url('/profildesadaftar')}}" >Buat Disini</a>
+                    <p>Sudah Daftar??</p>
+                  <a href="{{url('/profildesa')}}" >Login Disini</a>
                   </div>
             </div>
             <div class="col-md-6 text-center profildesaasd">

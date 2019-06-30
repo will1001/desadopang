@@ -192,7 +192,17 @@ footer a{
 }
 
 
-#home .kotaklogin{
+#home .kotakdaftar{
+    background-color: rgba(125,125,125,.5);
+    width: 358px;
+    height: 423px;
+    position: relative;
+    bottom: 201px;
+    left: 52px;
+    border-radius: 15px;
+    }
+
+    #home .kotaklogin{
     background-color: rgba(125,125,125,.5);
     width: 358px;
     height: 300px;
@@ -209,15 +219,15 @@ footer a{
 }
 
 .formemail{
-    padding: 47px 29px;
+    padding: 11px 29px;
 }
 
 .formpassword{
-    padding: 0px 29px;
+    padding: 11px 29px;
 }
 
 .btnlogin{
-    padding: 43px 29px;   
+    padding: 11px 29px;   
     text-transform: uppercase;
 }
 
@@ -232,7 +242,7 @@ footer a{
 
 .noteloginform{
     position: relative;
-    bottom: 80px;
+    bottom: 196px;
     right: 35px;
 }
 

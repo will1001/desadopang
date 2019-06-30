@@ -164,6 +164,12 @@ class webcontroller extends Controller
         return view("profildesa",['profil_desas' => $profil_desas]);
     } 
 
+    public function profildesadaftar()
+    {
+        # code...
+        return view("profildesadaftar");
+    } 
+
 
     public function artisancall()
     {
