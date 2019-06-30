@@ -1,0 +1,224 @@
+.mainmenu-area {
+    background-color: #138fc2;
+}
+
+.navbar-default{
+ 
+    display: block;
+ 
+}
+    nav.navbar{
+ 
+    top: 0px;
+    }
+
+}
+
+
+    a#navbarDropdown {
+    background-color: transparent;
+    }
+
+    nav .dropdown-menu{
+        background-color: #fff;
+        font-size: 21px;
+        border-radius: 15px;
+    }
+
+    a.dropdown-item {
+        margin: 1px 1px;
+        padding: 1px 1px;
+        color: #000000 !important;
+    }
+
+    a.dropdown-item:hover {
+        color: #138fc2 !important;
+    }
+
+    #dropdowntabel{
+        font-size: 13px;
+        width: 305px;
+    }
+
+    .mainmenu-area {
+        background-color: #138fc2;
+    }
+
+    .tomboladd{
+        float: right;
+        background-color: #138FC2;
+        border-radius: 30px;
+        padding: 15px 15px;
+        margin: 10px 10px;
+        color: #000;
+        opacity: 
+    }
+
+    .tomboledit{
+        float: right;
+        background-color: #138FC2;
+        border-radius: 30px;
+        padding: 20px 24px;
+        margin: 3px 0px;
+        color: #000;
+        position: absolute;
+        
+    }
+
+    #editform{
+      border: 1px solid #808080;
+      width: 17%;
+      margin: 20px 0px;
+      height: 29px;
+      padding: 5px 1px;
+    }
+
+
+    .tombolhapus{
+        float: right;
+        background-color: #138FC2;
+        border-radius: 30px;
+        padding: 10px 15px;
+        margin: 3px 0px;
+        color: #000;
+        position: absolute;
+        left: 19%;
+        top: 76%;
+    }
+
+    #hapusform{
+      border: 1px solid #808080;
+      width: 17%;
+      margin: 20px 0px;
+      height: 29px;
+      padding: 5px 1px;
+    }
+
+    .tomboladd:hover{
+        transform: scale(1.1);
+        font-weight: bold;
+        color: #000;
+        text-decoration: none;
+        transition: 1s;
+    }
+
+    #barang-desa .card{
+        text-align: center;
+    }
+
+
+    #profildesaadmin {
+        height: auto;
+    }
+
+    #profildesaadmin img{
+        width: 150px;
+        height: 150px;
+        margin: 15px 0px;
+    }
+
+    #profildesaadmin h1{
+        text-align: center;
+        font-size: 15px;
+        
+        
+    }
+
+
+    #profildesaadmin input.button.white{
+        margin: 10px 0px;
+    }
+
+
+    #profildesaadmin textarea{
+        width: 100%;
+    }
+
+
+    section{
+        padding-top: 100px;
+    }
+
+
+    #pilihankadus{
+        border: 1px solid #4272d7;
+        background-color: rgba(250,250,250,0.1);
+        font-size: 17px;
+        color: #4272d7;
+        font-family: Lato-Bold;
+        float: left;
+    }
+
+
+    #NIK{
+        border: 1px solid #808080;
+        /*width: 20%;*/
+        height: 30px;
+        padding: 5px 5px;
+    }
+
+    .navbar-brand span {
+    left: 4vw;
+    bottom: 11vh;
+    }
+
+    .search {
+    float: right;
+    border: 1px solid #000;
+    position: relative;
+    top: 4px;
+    width: 164px;
+    } 
+
+    .searchkadus {
+    display: inline-block;
+    }
+
+    .searchkadus input{
+    border: 1px solid #000 !important;
+    }
+
+    #tombol_search {
+    float: right;
+    background-color: #138fc2;
+    margin: 0px 5px;
+    border-radius: 19px;
+    padding: 0px 9px;
+    }
+
+    #tombol_searchkadus {
+    display: inline-block;
+    background-color: #138fc2;
+    margin: 0px 5px;
+    border-radius: 19px;
+    padding: 0px 10px;
+    }
+
+    input#search {
+    padding: 0px 4px;
+    width: 161px;
+    }
+    .dropdown-menu {
+    min-width: 243px;
+    padding: 11px 0;
+    font-size: 18px;
+    }
+
+    input#NIKsurat {
+        display: inline-block;
+        border: 1px solid #000!important;
+    }
+
+    a#tombolbuatsurat {
+    background: #138fc2;
+    border-radius: 23px;
+    padding: 5px 10px;
+    color: #000;
+   
+   }
+
+   #filter{
+    float: right;
+    margin: 4px 5px;
+    height: 24px;
+   }

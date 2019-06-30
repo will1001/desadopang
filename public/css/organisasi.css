@@ -1,0 +1,152 @@
+
+
+
+.mainmenu-area {
+    background-color: #138fc2;
+}
+.mainmenu-area .logo {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    height: inherit;
+    margin-top: 8px;
+    padding-left: 0;
+    width: 36vw;
+}
+
+.mainmenu-area .logo h2 {
+    margin-bottom: 0;
+    font-size: 22px;
+    position: relative;
+    top: 0vh;
+}
+
+.mainmenu-area .logo h5 {
+    margin-bottom: 0;
+    font-size: 13px;
+    
+    position: relative;
+    bottom: 0vh;
+    left: -381px;
+    
+}
+
+.mainmenu-area #primary-menu > ul > li > a {
+    background: none;
+    padding: 30px 15px;
+    position: relative;
+    border-top: 3px solid transparent;
+    text-align: center;    
+}
+
+.mainmenu-area #primary-menu > ul > li > a:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    border-top: 10px solid #ffffff;
+    opacity: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.mainmenu-area #primary-menu > ul > li > a:hover:before,
+.mainmenu-area #primary-menu > ul > li.active > a:before {
+    opacity: 1;
+    top: 0;
+}
+
+.mainmenu-area #primary-menu ul li.active a,
+.mainmenu-area #primary-menu ul li a:hover {
+    border-top: 3px solid #ffffff;
+}
+
+.mainmenu-area.affix {
+    background-color: #138fc2;
+}
+
+
+#logo{
+    float: left;
+    position: relative;
+    height: 9vh;
+    margin-right: 3%;
+    bottom: 9px;
+}
+
+
+
+section{
+	padding-top: 100px;
+}
+
+
+#grafik-STOK h1{
+	text-align: center;
+}
+
+
+
+#kades img{
+	height: 460px;
+    width: 367px;
+	
+	margin-bottom: 2%;	
+}
+
+
+#kades p{
+	line-height: 20px;
+}
+
+#kades h4{
+	text-align: center;
+}
+
+
+
+#sekretaris p,h5{
+	text-align: center;
+}
+
+#sekretaris img{
+	height: 460px;
+    width: 367px;
+    margin-bottom: 2%;
+}
+
+
+#sekretaris p{
+	line-height: 20px;
+}
+
+
+#sekretaris h4{
+	text-align: center;
+}
+
+
+#BPD img,#kaurdesa img{
+	height: 200px;
+    width: 150px;	
+	margin-bottom: 2%;	
+}
+
+
+
+
+#deskripsibpd p ,#deskripsikaur p{
+	text-align: left;
+}
+
+
+.box-team{
+    text-align: center;
+}
+
+

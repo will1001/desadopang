@@ -1,0 +1,42 @@
+.mainmenu-area {
+    background-color: #138fc2;
+}
+
+#visimisi img{
+	
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+}
+#visimisi h3{
+	text-align: center;
+}
+
+#visimisi h1{
+	text-align: center;
+	font-size: 33px;
+	font-weight: bold;
+}
+
+
+
+#visimisi p{
+	text-align: center;
+}
+
+#visimisi .col-md-12{
+	border: 5px solid black;
+	margin-bottom:  30px;
+
+}
+
+#lembaga button{
+    background-color: transparent;
+}
+
+#lembaga button:hover{
+    background-color: #138fc2;
+}
+
+.tabcontent{
+    margin: 1vh 1vw;
+}

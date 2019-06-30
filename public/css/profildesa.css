@@ -1,0 +1,144 @@
+section{
+	padding-top: 95px;
+	height: auto;
+}
+
+.bg-dark {
+	background-color: #6f4e37!important;
+}
+
+p{
+	line-height: 30px;
+	font-family: Tahoma;
+	font-size: 14px;
+	font-weight: 500;
+	
+}
+
+h1{
+	font-size: 33px;
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+
+h3{
+	font-size: 23px;
+	font-weight: bold;
+	padding-bottom: 11px;
+
+}
+#tentang-desa {
+	background-image: url('../images/bg.png');
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	background-color: #fff;
+	width: 100%;
+	padding-bottom: 55px;
+	height: auto;
+	color: #fff;
+}
+
+
+#tentang-desa img{
+	float: left;
+	margin-right: 30px;
+	margin-bottom: 5px;
+	width: 386px;
+	height: 286px;
+}
+
+#tentang-desa h1{
+	padding-bottom: 22px;
+    padding-top: 18px;
+}
+
+
+#tentang-desa #bgprofil{
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 15px;
+	margin-bottom: 1vh;
+	width: 100%; 
+	margin-top: 4vh;
+    position: relative;
+    left: 2vh;
+}
+
+
+#visimisi{
+	background-color: #f2f2f3;
+	width: 100%;
+	padding-bottom: 55px;
+	
+}
+
+#visimisi h1{
+	text-align: center;
+	
+}
+
+#visimisi ol{
+	margin: 10px 10px;
+}
+
+#visimisi p{
+	text-align: center;
+}
+
+#visimisi .col-md-12{
+	border: 3px solid #138FC2;
+	margin-bottom: 33px;
+   
+}
+
+
+
+#gambaran-umum h1{
+	text-align: center;
+}
+
+#gambaran-umum h3{
+ 
+}
+
+#gambaran-umum{
+	width: 100%;
+	padding-bottom: 55px;
+	
+}
+
+#gambaran-umum table,th,td{
+
+	text-align: center;
+}
+
+
+
+#peta-desa{
+	text-align: center;
+	background-color: #f2f2f3;
+	width: 100%;
+	padding-bottom: 55px;
+	
+}
+
+#peta-desa img{
+	margin-bottom: 55px;
+}
+
+img.grafik-image{
+	width: 100%;
+	margin-bottom: 0px;
+}
+
+
+
+
+#data-desa{
+	width: 100%;
+	padding-bottom: 55px;
+	
+}
+
+
