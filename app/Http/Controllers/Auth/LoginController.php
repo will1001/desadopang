@@ -19,7 +19,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+     logout as performLogout;
+    }
 
     /**
      * Where to redirect users after login.
@@ -37,6 +39,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function logout(Request $request)
+{
+    $this->performLogout($request);
+    return redirect()->route('profildesa');
+}
     /**
      * Get the needed authorization credentials from the request.
      *

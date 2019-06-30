@@ -83,7 +83,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
-                <a href="">DAFTAR</a>
+                <a href="{{ url('/profildesa') }}">PROFIL DESA</a>
                 <div id="pembatas"></div>
                 <div class="btn-group dropright">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">INFO TERBARU</a>
@@ -125,7 +125,6 @@
       <div class="col-md-6">
         <h1>SELAYANG PANDANG</h1>
         <p>Desa Dopang adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
-        <a href="{{ url('/profildesa') }}">PROFIL DESA</a>
       </div>
     </div>
   </div>

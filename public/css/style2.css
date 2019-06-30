@@ -195,9 +195,9 @@ footer a{
 #home .kotakdaftar{
     background-color: rgba(125,125,125,.5);
     width: 358px;
-    height: 423px;
+    height: 467px;
     position: relative;
-    bottom: 201px;
+    bottom: 223px;
     left: 52px;
     border-radius: 15px;
     }
@@ -218,11 +218,11 @@ footer a{
     height: 50px;
 }
 
-.formemail{
-    padding: 11px 29px;
+.formdaftar{
+    padding: 7px 29px;
 }
 
-.formpassword{
+.formlogin{
     padding: 11px 29px;
 }
 
@@ -240,8 +240,14 @@ footer a{
     background-image: linear-gradient(#ffffff, #C4C4C4);
 }
 
+.notedaftarform{
+    position: absolute;
+    bottom: 415px;
+right: 278px;
+}
+
 .noteloginform{
-    position: relative;
+    position: absolute;
     bottom: 196px;
     right: 35px;
 }

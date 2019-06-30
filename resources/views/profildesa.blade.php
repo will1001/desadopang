@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/loginregister.css') }}">
+
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
     <title>Desa Dopang</title>
@@ -50,7 +52,7 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/profildesa') }}">Profil Desa</a>
+        <a class="nav-link" href="{{ url('/profildesa') }}">Login</a>
         <div class="garisbawah active"></div>
       </li>
     </ul>
@@ -66,7 +68,7 @@
                 <div class="kotaklogin">
                   <form method="POST" action="{{ route('login') }}">
                   @csrf
-                      <div class="formemail">
+                      <div class="formlogin">
                         <input id="email"  placeholder="Masukan Email/NIK" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                     @if ($errors->has('email'))
@@ -76,7 +78,7 @@
                                     @endif
                       </div>
 
-                      <div class="formpassword">
+                      <div class="formlogin">
                         <input id="password"  placeholder="Masukan Password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                     @if ($errors->has('password'))
@@ -99,26 +101,29 @@
                   </div>
             </div>
             <div class="col-md-6 text-center profildesaasd">
-                <ul class="text-left">
-                  <li><a href="">STRUKTUR ORGANISASI DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">DATA STATISTIK DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">PETA GEOGRAFIS DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">PASAR ONLINE DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">PENGURUSAN SURAT MENYURAT</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">SEJARAH KEPEMIMPINAN DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                </ul>
+              <div class="sloganbox">
+                  <h1 id="slogan1loginregister">SUGENG RAWUH RING DESA</h1>
+                  <h1 id="slogan2loginregister">DOPANG</h1>
+              </div>
+               <div id="foothomeloginregister">
+                  <div class="row">
+                      <div class="col-md-4 text-center">
+                          <img src="/images/alamat.png" alt="">
+                          <h4>Alamat</h4>
+                          <p>Jl. Raya Praya Kopang, Km 05,DOPANG</p>
+                      </div>
+                      <div class="col-md-4 text-center">
+                          <img src="/images/telepon.png" alt="">
+                          <h4>Telepon</h4>
+                          <p>087722208689</p>
+                      </div>
+                      <div class="col-md-4 text-center">
+                          <img src="/images/email.png" alt="">
+                          <h4>Email</h4>
+                          <p>jurangjaler@gmail.com</p>
+                      </div>    
+                  </div>    
+              </div>
             </div>
         </div>
     </div>

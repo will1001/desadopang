@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/loginregister.css') }}">
+
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
     <title>Desa Dopang</title>
@@ -50,7 +52,7 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/profildesa') }}">Profil Desa</a>
+        <a class="nav-link" href="{{ url('/profildesa') }}">Daftar</a>
         <div class="garisbawah active"></div>
       </li>
     </ul>
@@ -64,10 +66,31 @@
         <div class="row">
             <div class="col-md-6 text-center">
                 <div class="kotakdaftar">
-                  <form method="POST" action="{{ route('login') }}">
+                  <form method="POST" action="{{ route('register') }}">
                   @csrf
-                      <div class="formemail">
-                        <input id="email"  placeholder="Nama" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                      <div class="formdaftar">
+                        <input id="name"  placeholder="Nama" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+
+                                    @if ($errors->has('name'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                      </div>
+
+                      <div class="formdaftar">
+                        <input id="Nomor_KK"  placeholder="Nomor KK" type="text" class="form-control{{ $errors->has('Nomor_KK') ? ' is-invalid' : '' }}" name="Nomor_KK" required>
+
+                                    @if ($errors->has('Nomor_KK'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('Nomor_KK') }}</strong>
+                                        </span>
+                                    @endif
+                      </div>
+
+
+                      <div class="formdaftar">
+                        <input id="email"  placeholder="Masukan Email/NIK" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
@@ -76,17 +99,7 @@
                                     @endif
                       </div>
 
-                      <div class="formpassword">
-                        <input id="password"  placeholder="Nomor KK" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-                      </div>
-
-                      <div class="formpassword">
+                      <div class="formdaftar">
                         <input id="password"  placeholder="{{ __('Password') }}" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                     @if ($errors->has('password'))
@@ -96,69 +109,72 @@
                                     @endif
                       </div>
 
-                      <div class="formpassword">
-                        <input id="password"  placeholder="{{ __('Confirm Password') }}" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                      <div class="formdaftar">
+                        <input id="password-confirm"  placeholder="{{ __('Confirm Password') }}" type="password" class="form-control{{ $errors->has('password-confirm') ? ' is-invalid' : '' }}" name="password_confirmation" required>
 
-                                    @if ($errors->has('password'))
+                                    @if ($errors->has('password-confirm'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
+                                            <strong>{{ $errors->first('password-confirm') }}</strong>
                                         </span>
                                     @endif
                       </div>
 
-                      <div class="formpassword">
-                        <input id="password"  placeholder="No HP" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                      <div class="formdaftar">
+                        <input id="No_HP"  placeholder="No HP" type="text" class="form-control{{ $errors->has('No_HP') ? ' is-invalid' : '' }}" name="No_HP" required>
 
-                                    @if ($errors->has('password'))
+                                    @if ($errors->has('No_HP'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
+                                            <strong>{{ $errors->first('No_HP') }}</strong>
                                         </span>
                                     @endif
                       </div>
 
-                      <div class="formpassword">
-                        <input id="password"  placeholder="Alamat" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                      <div class="formdaftar">
+                        <input id="Alamat"  placeholder="Alamat" type="text" class="form-control{{ $errors->has('Alamat') ? ' is-invalid' : '' }}" name="Alamat" required>
 
-                                    @if ($errors->has('password'))
+                                    @if ($errors->has('Alamat'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
+                                            <strong>{{ $errors->first('Alamat') }}</strong>
                                         </span>
                                     @endif
                       </div>
 
                     <div class="btnlogin">
                       <button type="submit">
-                            {{ __('LOGIN') }}
+                            {{ __('Register') }}
                     </button>
                     </div>
                   </form>
                     </div>
-                  <div class="noteloginform">
+                  <div class="notedaftarform">
                     <p>Sudah Daftar??</p>
                   <a href="{{url('/profildesa')}}" >Login Disini</a>
                   </div>
             </div>
             <div class="col-md-6 text-center profildesaasd">
-                <ul class="text-left">
-                  <li><a href="">STRUKTUR ORGANISASI DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">DATA STATISTIK DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">PETA GEOGRAFIS DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">PASAR ONLINE DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">PENGURUSAN SURAT MENYURAT</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                  <li><a href="">SEJARAH KEPEMIMPINAN DESA</a></li>
-                  <div class="garistransparansi"></div>
-                  <br><br>
-                </ul>
+                <div class="sloganbox">
+                  <h1 id="slogan1loginregister">SUGENG RAWUH RING DESA</h1>
+                  <h1 id="slogan2loginregister">DOPANG</h1>
+                </div>
+                 <div id="foothomeloginregister">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="/images/alamat.png" alt="">
+                            <h4>Alamat</h4>
+                            <p>Jl. Raya Praya Kopang, Km 05,DOPANG</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="/images/telepon.png" alt="">
+                            <h4>Telepon</h4>
+                            <p>087722208689</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <img src="/images/email.png" alt="">
+                            <h4>Email</h4>
+                            <p>jurangjaler@gmail.com</p>
+                        </div>    
+                    </div>    
+                </div>
             </div>
         </div>
     </div>
