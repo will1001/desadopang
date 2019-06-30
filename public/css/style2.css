@@ -3,7 +3,7 @@ body{
     background-image: url("/images/bg.jpg");
 
    /* Full height */
-   height: 1000px;
+   height: 483px;
 
    /* Center and scale the image nicely */
    background-position: center;
@@ -12,6 +12,11 @@ body{
    font-family: 'Arial';
    font-size: 0.8rem;
 }
+
+
+
+
+
 
 #logotext{
     text-transform: uppercase;
@@ -65,28 +70,53 @@ body{
 .active{
     border-bottom: 2px #ffffff solid;
     width: 37%;
-    margin: -9px 31%;
+    margin: -9px 33%;
 }
 
 .dropdown-toggle::after {
     display:none;
 }
-#home .dropdown-toggle::after {
-    display:none;
+
+#home .asd{
+    position: relative;
+    bottom: 115px;
+    
+}
+
+#home .profildesaasd {
+    position: relative;
+    bottom: 190px;
+    left: 99px;
 }
 
 #home a{
-    border: 1px rgba(255,255,255,.5) solid;
-    color: #fff;
-    background-color: transparent;
-    display: inline-block;
-    padding: 15px 10px;
-    width: 200px;
-    
+    color: #000;
 }
 
 #home .container{
     padding-top: 17%;
+}
+
+#home ul li a{
+    text-decoration: none;
+}
+
+#home ul li{
+    list-style-type: circle;
+    font-size: 22px;
+    line-height: 111px;
+}
+#home ul li:hover{
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.garistransparansi{
+    border-bottom: 1px #000 solid;
+    border-left: 1px #000 solid;
+    width: 384px;
+    height: 19px;
+    margin: -50px -17px;
 }
 
 #slogan1{
@@ -161,77 +191,104 @@ footer a{
     color: gray;
 }
 
-.arrowdown {
-    border: solid #fff;
-  border-width: 0 1px 1px 0;
+
+#home .kotaklogin{
+    background-color: rgba(125,125,125,.5);
+    width: 358px;
+    height: 300px;
+    position: relative;
+    bottom: 113px;
+    left: 52px;
+    border-radius: 15px;
+    }
+
+
+.email,.password{
+    background-color: rgba(125,125,125,.5);
+    height: 50px;
+}
+
+.formemail{
+    padding: 47px 29px;
+}
+
+.formpassword{
+    padding: 0px 29px;
+}
+
+.btnlogin{
+    padding: 43px 29px;   
+    text-transform: uppercase;
+}
+
+.btnlogin button{
+    border-radius: 15px;
+    border: 1px #000 solid;
+    width: 100px;
+    height: 30px;
+    box-shadow: 3px 5px 13px #000;
+    background-image: linear-gradient(#ffffff, #C4C4C4);
+}
+
+.noteloginform{
+    position: relative;
+    bottom: 80px;
+    right: 35px;
+}
+
+.noteloginform a{
+    color: #A671DA!important;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  
+  border-left: 15px solid #949599;
+  margin: 0px 17px;
   display: inline-block;
-  padding: 6px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  cursor: pointer;
 }
 
-.arrowke2{
-    position: relative;
-    bottom: 19px;
+.arrow-right:hover {
+    border-left: 15px solid #000000;
 }
 
-.bungkusarrow{
-    position: relative;
-    left: 70px;
-    bottom: 13px;
-}
-
-a#navbarDropdown {
-    height: 49px;
-}
-
-.dropdown-menu{
-    margin-top: 29px;
-    
-}
-#home .dropdown-menu{
-    margin-left: 21px;
-    margin-top: -127px;
-    padding: 5px 5px;
-    
-}
-
-.speech-bubble {
-    position: relative;
-    background: rgba(148, 149, 153, 0.5);
-    border-radius: .4em;
-}
-
-.speech-bubble:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
+.arrow-left {
     width: 0;
     height: 0;
-    border: 20px solid transparent;
-    border-bottom-color: rgba(148, 149, 153, 0.5);
-    border-top: 0;
-    margin-left: -20px;
-    margin-top: -20px;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #949599;
+    margin: 0px 17px;
+    display: inline-block;
+    cursor: pointer;
 }
 
-.speech-bubble2 {
-    position: relative;
-    background: rgba(148, 149, 153, 0.5);
-    border-radius: .4em;
+.arrow-left:hover {
+    border-right: 15px solid #000000;
 }
 
-.speech-bubble2:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-right-color: rgba(148, 149, 153, 0.5);
-    border-left: 0;
-    margin-top: -20px;
-    margin-left: -20px;
+.slideshowgambar{
+    margin: 93px 0px;
+}
+
+.slideshowgambar img{
+    width: 100px;
+    height: 100px;
+}
+
+.slideshowgambar .active{
+    transform: scale(1.5);
+    box-shadow: 10px 10px 10px #000;
+    transition: 1s;
+}
+
+.slideshowgambar .animasi{
+    transform: translateX(-100px);
+    transform: scale(1);
+    box-shadow: 0px 0px 0px #000;
+    transition: 1s;
 }

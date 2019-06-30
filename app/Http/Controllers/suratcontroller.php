@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;	
 use PhpOffice\PhpWord\PhpWord;
 use App\data_penduduk;
+use App\SOTK;
 use App\kode_area_dusun;
 use App\kopsurat;
 use Carbon;
@@ -18,17 +19,7 @@ class suratcontroller extends Controller
      public function formsurat($id)
     {
         if(Auth::user()->roles == "member"){
-        $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+        $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
         $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
         return view("surat/".$id,['data_penduduks' => $data_penduduks,'kode_area_dusuns' => $kode_area_dusuns]);
         }else{
@@ -44,19 +35,11 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
+
 
           $mytime = Carbon\Carbon::now();
         
@@ -71,19 +54,19 @@ class suratcontroller extends Controller
           $doc -> setValue('nama_kecamatan',$kopsurats[0]->Nama_Kecamatan);
           $doc -> setValue('nama_desa',$kopsurats[0]->Nama_Desa);
           $doc -> setValue('alamat_desa',$kopsurats[0]->Alamat_Desa);
-          $doc -> setValue('tahun',$mytime->year);
+          $doc -> setValue('tahun',$data_penduduks[0]->year);
           $doc -> setValue('nama',$data_penduduks[0]->Nama);
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('no_KK',$data_penduduks[0]->Nomor_KK);
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempatlahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggallahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
-          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->kewarganegaraan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
+          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -104,19 +87,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -137,12 +111,12 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempatlahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggallahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
-          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->kewarganegaraan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
+          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -177,19 +151,10 @@ class suratcontroller extends Controller
         if(Auth::user()->roles == "member"){
 
         
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
   
 
           $mytime = Carbon\Carbon::now();
@@ -212,11 +177,11 @@ class suratcontroller extends Controller
           $doc -> setValue('tempatlahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggallahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
-          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->kewarganegaraan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
+          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -238,19 +203,10 @@ class suratcontroller extends Controller
         }elseif(Auth::user()->roles == "kades"){
 
         
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
   
 
           $mytime = Carbon\Carbon::now();
@@ -273,11 +229,11 @@ class suratcontroller extends Controller
           $doc -> setValue('tempatlahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggallahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
-          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->kewarganegaraan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
+          $doc -> setValue('kewarganegaraan',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -320,19 +276,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_izin_keramaian_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -377,19 +324,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_izin_keramaian_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -444,19 +382,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_kehendak_nikah_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -487,19 +416,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_kehendak_nikah_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -541,19 +461,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_ket_nikah_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -587,19 +498,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_ket_nikah_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -641,19 +543,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_ket_wali_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -684,19 +577,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_ket_wali_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -737,19 +621,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_ket_wali_hakim_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -780,19 +655,9 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_ket_wali_hakim_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
-          $kopsurats=kopsurat::all();
+          $kopsurats=kopsurat::all();$SOTKs=SOTK::all();
 
           
           
@@ -833,19 +698,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_persetujuan_mempelai_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -873,19 +729,10 @@ class suratcontroller extends Controller
           $hasil   = public_path('storage/surat/nikah/surat_persetujuan_mempelai_.docx');
           $phpWord = new PhpWord();
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           
           
@@ -920,19 +767,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -953,21 +791,21 @@ class suratcontroller extends Controller
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('no_passpor',$data_penduduks[0]->No_Passpor);
           $doc -> setValue('tanggal_akhir_passpor',$data_penduduks[0]->Tanggal_akhir_Paspor);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('akta_lahir',$data_penduduks[0]->Akta_Lahir);
           $doc -> setValue('gol_darah',$data_penduduks[0]->Golongan_Darah);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('no_akta_perkawinan',$data_penduduks[0]->No_Akta_Perkawinan);
           $doc -> setValue('tanggal_perkawinan',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Perkawinan)));
           $doc -> setValue('no_akta_perceraian',$data_penduduks[0]->No_Akta_Perceraian);
           $doc -> setValue('tanggal_perceraian',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Perceraian)));
           $doc -> setValue('status_hubungan_dalam_keluarga',$data_penduduks[0]->Status_Hubungan_Dalam_Keluarga);
           $doc -> setValue('cacat',$data_penduduks[0]->Cacat);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('nama_ibu',$data_penduduks[0]->Nama_Ibu);
           $doc -> setValue('nik_ibu',$data_penduduks[0]->NIK_Ibu);
           $doc -> setValue('nama_ayah',$data_penduduks[0]->Nama_Ayah);
@@ -988,19 +826,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1021,21 +850,21 @@ class suratcontroller extends Controller
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('no_passpor',$data_penduduks[0]->No_Passpor);
           $doc -> setValue('tanggal_akhir_passpor',$data_penduduks[0]->Tanggal_akhir_Paspor);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('akta_lahir',$data_penduduks[0]->Akta_Lahir);
           $doc -> setValue('gol_darah',$data_penduduks[0]->Golongan_Darah);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('no_akta_perkawinan',$data_penduduks[0]->No_Akta_Perkawinan);
           $doc -> setValue('tanggal_perkawinan',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Perkawinan)));
           $doc -> setValue('no_akta_perceraian',$data_penduduks[0]->No_Akta_Perceraian);
           $doc -> setValue('tanggal_perceraian',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Perceraian)));
           $doc -> setValue('status_hubungan_dalam_keluarga',$data_penduduks[0]->Status_Hubungan_Dalam_Keluarga);
           $doc -> setValue('cacat',$data_penduduks[0]->Cacat);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('nama_ibu',$data_penduduks[0]->Nama_Ibu);
           $doc -> setValue('nik_ibu',$data_penduduks[0]->NIK_Ibu);
           $doc -> setValue('nama_ayah',$data_penduduks[0]->Nama_Ayah);
@@ -1069,19 +898,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1101,12 +921,12 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('no_kk',$data_penduduks[0]->No_KK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1128,19 +948,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1160,12 +971,12 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('no_kk',$data_penduduks[0]->No_KK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1199,19 +1010,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1230,13 +1032,13 @@ class suratcontroller extends Controller
           $doc -> setValue('nama',$data_penduduks[0]->Nama);
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1258,19 +1060,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1290,13 +1083,13 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('no_kk',$data_penduduks[0]->No_KK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1330,19 +1123,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1361,13 +1145,13 @@ class suratcontroller extends Controller
           $doc -> setValue('nama',$data_penduduks[0]->Nama);
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1389,19 +1173,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1421,13 +1196,13 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('no_kk',$data_penduduks[0]->No_KK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1461,19 +1236,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1500,19 +1266,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1549,19 +1306,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1580,11 +1328,11 @@ class suratcontroller extends Controller
           $doc -> setValue('nama',$data_penduduks[0]->Nama);
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1603,19 +1351,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1634,11 +1373,11 @@ class suratcontroller extends Controller
           $doc -> setValue('nama',$data_penduduks[0]->Nama);
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
           if($kode_area_dusuns->count()==0){
@@ -1667,19 +1406,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1701,11 +1431,11 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -1726,19 +1456,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1760,11 +1481,11 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -1796,19 +1517,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1828,9 +1540,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -1851,19 +1563,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1883,9 +1586,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -1917,19 +1620,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -1949,9 +1643,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -1972,19 +1666,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2004,9 +1689,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2038,19 +1723,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2070,9 +1746,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2093,19 +1769,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2125,9 +1792,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2159,19 +1826,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2191,10 +1849,10 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2215,19 +1873,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2247,10 +1896,10 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2283,19 +1932,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2315,9 +1955,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2338,19 +1978,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2370,9 +2001,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2404,19 +2035,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2443,19 +2065,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2495,19 +2108,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2529,11 +2133,11 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2554,19 +2158,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2588,11 +2183,11 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
-          $doc -> setValue('pendidikan',$data_penduduks[0]->pendidikan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
+          $doc -> setValue('pendidikan',$data_penduduks[0]->Pendidikan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
@@ -2625,19 +2220,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2657,9 +2243,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -2679,19 +2265,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2711,9 +2288,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -2745,19 +2322,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2777,9 +2345,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -2799,19 +2367,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2831,9 +2390,9 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -2865,19 +2424,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2897,10 +2447,10 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -2920,19 +2470,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -2952,10 +2493,10 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -2988,19 +2529,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3020,11 +2552,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3044,19 +2576,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3076,11 +2599,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3112,19 +2635,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3146,11 +2660,11 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3170,19 +2684,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3204,11 +2709,11 @@ class suratcontroller extends Controller
           $doc -> setValue('kepala_kk',$data_penduduks[0]->Kepala_Keluarga);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3240,19 +2745,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3272,11 +2768,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3296,19 +2792,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3328,11 +2815,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3363,19 +2850,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3395,12 +2873,12 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3420,19 +2898,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3452,12 +2921,12 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
-          $doc -> setValue('status_perkawinan',$data_penduduks[0]->status_perkawinan);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
+          $doc -> setValue('status_perkawinan',$data_penduduks[0]->Status_Perkawinan);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3489,19 +2958,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3521,11 +2981,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3545,19 +3005,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3577,11 +3028,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3611,19 +3062,10 @@ class suratcontroller extends Controller
 
         if(Auth::user()->roles == "member"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('Nomor_KK',Auth::user()->Nomor_KK)->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',Auth::user()->NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3643,11 +3085,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);
@@ -3667,19 +3109,10 @@ class suratcontroller extends Controller
 
         }elseif(Auth::user()->roles == "kades"){
 
-          $data_penduduks = \DB::table('data_penduduks')
-              ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-              ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-              ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-              ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-              ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-              ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-              ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-              ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-              ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga')
-              ->where('NIK',$NIK)->get();
+          $data_penduduks=data_penduduk::where('NIK',$NIK)->get();
           $kode_area_dusuns=kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
           $kopsurats=kopsurat::all();
+          $SOTKs=SOTK::all();
 
           $mytime = Carbon\Carbon::now();
         
@@ -3699,11 +3132,11 @@ class suratcontroller extends Controller
           $doc -> setValue('no_ktp',$data_penduduks[0]->NIK);
           $doc -> setValue('tempat_lahir',$data_penduduks[0]->Tempat_Lahir);
           $doc -> setValue('tanggal_lahir',date("d-m-Y", strtotime($data_penduduks[0]->Tanggal_Lahir)));
-          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->jenis_kelamin);
-          $doc -> setValue('agama',$data_penduduks[0]->agama);
+          $doc -> setValue('jenis_kelamin',$data_penduduks[0]->Jenis_Kelamin);
+          $doc -> setValue('agama',$data_penduduks[0]->Agama);
           $doc -> setValue('umur',$data_penduduks[0]->Usia);
           $doc -> setValue('warganegara',$data_penduduks[0]->Kewarganegaraan);
-          $doc -> setValue('pekerjaan',$data_penduduks[0]->jenis_pekerjaan);
+          $doc -> setValue('pekerjaan',$data_penduduks[0]->Jenis_Pekerjaan);
           $doc -> setValue('alamat',$data_penduduks[0]->Alamat);
           $doc -> setValue('rt',$data_penduduks[0]->RT);
           $doc -> setValue('rw',$data_penduduks[0]->RW);

@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             // 'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'Nomor_KK' => 'required|string|max:255',
+            'NIK' => 'required|string|max:255',
             'Alamat' => 'required|string|max:255',
         ]);
     }
@@ -65,21 +65,18 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-            {
+    {
 
-        $data_penduduks=data_penduduk::where('Nomor_KK',$data['Nomor_KK'])->get();
-        
-        
-        if($data_penduduks->count()>0){
-            
+        $data_penduduks=data_penduduk::where('NIK',$data['NIK'])->get();
+        // dd($data_penduduks[0]->NIK);
 
-            if($data['Nomor_KK'] == $data_penduduks[0]->Nomor_KK){
 
+            if($data['NIK'] == $data_penduduks[0]->NIK){
 
             return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'Nomor_KK' => $data['Nomor_KK'],
+            'NIK' => $data['NIK'],
             'No_HP' => $data['No_HP'],
             'Alamat' => $data['Alamat'],
             'password' => Hash::make($data['password']),
@@ -88,14 +85,6 @@ class RegisterController extends Controller
 
 
             }
-
-        }else{
-            dd("Maaf Nomor KK anda tidak terdaftar");
-            // reurn redirect('kktidakada');
-        }
-
-
-            
         
 
         

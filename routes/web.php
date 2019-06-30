@@ -12,27 +12,15 @@
 */
 
 Route::get('/', 'webcontroller@indexhome');
-Route::get('/kktidakada', 'webcontroller@kktidakada');
+Route::get('/indexberita', 'webcontroller@indexberita');
+Route::get('/indextransparansi', 'webcontroller@indextransparansi');
+Route::get('/indexproduk', 'webcontroller@indexproduk');
 Route::get('/updateumur', 'admincontroller@updateumur');
 
 Route::get('/reloadtabeldatapendudukajax/{id}/{skipdata}',function($id,$skipdata)
 {
 	if(Request::ajax()){
-		// $data_penduduk_kadus_ajax=App\data_penduduk::where('id_dusun',$id)->take(25)->skip($skipdata)->get();
-		$data_penduduk_kadus_ajax = DB::table('data_penduduks')
-	            ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-	            ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-	            ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-	            ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-	            ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-	            ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-	            ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-	            ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-	            ->join('kode_data_akta_lahirs', 'data_penduduks.Akta_Lahir', '=', 'kode_data_akta_lahirs.id')
-	            ->join('kode_data_cacats', 'data_penduduks.Cacat', '=', 'kode_data_cacats.id')
-	            ->join('kode_data_cara_kbs', 'data_penduduks.Cara_KB', '=', 'kode_data_cara_kbs.id')
-	            ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga','kode_data_akta_lahirs.akta_lahir','kode_data_cacats.cacat','kode_data_cara_kbs.cara_kb')
-	            ->where('id_dusun',$id)->take(25)->skip($skipdata)->get();
+		$data_penduduk_kadus_ajax=App\data_penduduk::where('id_dusun',$id)->take(25)->skip($skipdata)->get();
 
         return $data_penduduk_kadus_ajax;
 	}
@@ -43,49 +31,23 @@ Route::get('/reloadtabeldatapendudukajax/{id}/{skipdata}',function($id,$skipdata
 Route::get('/cari/{kategori}/{id}',function($kategori,$id)
 {
 	if(Request::ajax()){
-	 $data_penduduk_kadus_ajax=DB::table('data_penduduks')
-	            ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-	            ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-	            ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-	            ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-	            ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-	            ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-	            ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-	            ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-	            ->join('kode_data_akta_lahirs', 'data_penduduks.Akta_Lahir', '=', 'kode_data_akta_lahirs.id')
-	            ->join('kode_data_cacats', 'data_penduduks.Cacat', '=', 'kode_data_cacats.id')
-	            ->join('kode_data_cara_kbs', 'data_penduduks.Cara_KB', '=', 'kode_data_cara_kbs.id')
-	            ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga','kode_data_akta_lahirs.akta_lahir','kode_data_cacats.cacat','kode_data_cara_kbs.cara_kb')
-	            ->where($kategori,'LIKE','%'.$id.'%')->get();
+	 $data_penduduk_kadus_ajax=App\data_penduduk::where($kategori,'LIKE','%'.$id.'%')->get();
 
         return $data_penduduk_kadus_ajax;
 	}
 });
 
-Route::get('/caridatakadus/{kategori}/{id}',function($kategori,$id)
+Route::get('/caridatakadus/{id}/{id_dusun}',function($id,$id_dusun)
 {
-	
 	if(Request::ajax()){
-		// $kode_area_dusuns=App\kode_area_dusun::where('id_kadus',Auth::user()->id)->get();
-	 $data_penduduk_kadus_ajax=DB::table('data_penduduks')
-	            ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-	            ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-	            ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-	            ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-	            ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-	            ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-	            ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-	            ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-	            ->join('kode_data_akta_lahirs', 'data_penduduks.Akta_Lahir', '=', 'kode_data_akta_lahirs.id')
-	            ->join('kode_data_cacats', 'data_penduduks.Cacat', '=', 'kode_data_cacats.id')
-	            ->join('kode_data_cara_kbs', 'data_penduduks.Cara_KB', '=', 'kode_data_cara_kbs.id')
-	            ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga','kode_data_akta_lahirs.akta_lahir','kode_data_cacats.cacat','kode_data_cara_kbs.cara_kb')
-	            ->where($kategori,'LIKE','%'.$id.'%')->get();
+	 $data_penduduk_kadus_ajax=App\data_penduduk::where('Id_Dusun',$id_dusun)->where('Nama','LIKE','%'.$id.'%')->orWhere('NIK','LIKE','%'.$id.'%')->get();
 
         return $data_penduduk_kadus_ajax;
 	}
-
 });
+
+
+
 
 Route::get('/reloadtabeldusunurutnama/{id}/{pil}',function($id,$pil)
 {
@@ -106,7 +68,6 @@ Route::get('/reloadtabeldusunurutnama/{id}/{pil}',function($id,$pil)
 
 
 Route::get('/profildesa', 'webcontroller@profildesa');
-Route::get('/export_data_penduduk', 'webcontroller@export_data_penduduk');
 Route::get('/bumdes', 'webcontroller@bumdes');
 Route::get('/statistik', 'webcontroller@statistik');
 Route::get('/artisancall', 'webcontroller@artisancall');
@@ -150,8 +111,7 @@ Route::get('/cekumur/{id}', function($id)
         
     }
 });
-Route::post('/editnmrhp/{id}', 'admincontroller@editnmrhp')->middleware('auth');
-Route::get('/formeditnmrhp/{id}', 'admincontroller@formeditnmrhp')->middleware('auth');
+
 
 // form rute
 Route::get('/formaddberita', 'admincontroller@formaddberita')->middleware('auth');
@@ -167,8 +127,6 @@ Route::get('/formaddbarangdesa/{id}', 'admincontroller@formaddbarangdesa')->midd
 Route::get('/formaddbumdes/{id}', 'admincontroller@formaddbumdes')->middleware('auth');
 Route::get('/formsettingkopsurat', 'admincontroller@formsettingkopsurat')->middleware('auth');
 Route::post('/settingkopsurat', 'admincontroller@settingkopsurat')->middleware('auth');
-Route::get('/formaddSOTK', 'admincontroller@formaddSOTK')->middleware('auth');
-
 
 
 
@@ -187,10 +145,6 @@ Route::get('/formeditbarangdesa/{id}', 'admincontroller@formeditbarangdesa')->mi
 Route::get('/formeditbumdes/{id}', 'admincontroller@formeditbumdes')->middleware('auth');
 Route::get('/formeditdatapendudukkadus/{id}', 'admincontroller@formeditdatapendudukkadus')->middleware('auth');
 Route::get('/formeditdatapendudukkades/{id}/{id2}', 'admincontroller@formeditdatapendudukkades')->middleware('auth');
-Route::get('/formeditdatapendudukwarga/{id}/{id2}', 'admincontroller@formeditdatapendudukwarga')->middleware('auth');
-Route::get('/formeditSOTK/{id}', 'admincontroller@formeditSOTK')->middleware('auth');
-Route::get('/deleteSOTK/{id}', 'admincontroller@deleteSOTK');
-
 
 
 
@@ -237,7 +191,6 @@ Route::post('/editbarangdesa/{id}', 'admincontroller@editbarangdesa');
 Route::post('/editbumdes/{id}', 'admincontroller@editbumdes');
 Route::post('/editdatapendudukkadus/{id}', 'admincontroller@editdatapendudukkadus');
 Route::post('/editdatapendudukkades/{id}/{id2}', 'admincontroller@editdatapendudukkades');
-Route::post('/editdatapendudukwarga/{id}/{id2}', 'admincontroller@editdatapendudukwarga');
 Route::post('/editdeskripsiSOTK', 'admincontroller@editdeskripsiSOTK');
 Route::get('/penduduk_keluar/{id}', 'admincontroller@penduduk_keluar');
 Route::post('/postpenduduk_keluar/{id}', 'admincontroller@postpenduduk_keluar');
@@ -347,44 +300,15 @@ Route::get('/admin', function(){
 		$users= \App\User::find(Auth::user()->id);
         
         $kode_area_dusuns=App\kode_area_dusun::where('id_kadus',Auth::user()->id)->get();
-        // $data_penduduks=App\data_penduduk::where('id_dusun',$kode_area_dusuns[0]->id_dusun)->get();
-        $data_penduduks = DB::table('data_penduduks')
-	            ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-	            ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-	            ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-	            ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-	            ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-	            ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-	            ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-	            ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-	            ->join('kode_data_akta_lahirs', 'data_penduduks.Akta_Lahir', '=', 'kode_data_akta_lahirs.id')
-	            ->join('kode_data_cacats', 'data_penduduks.Cacat', '=', 'kode_data_cacats.id')
-	            ->join('kode_data_cara_kbs', 'data_penduduks.Cara_KB', '=', 'kode_data_cara_kbs.id')
-	            ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga','kode_data_akta_lahirs.akta_lahir','kode_data_cacats.cacat','kode_data_cara_kbs.cara_kb')
-	            ->where('id_dusun',$kode_area_dusuns[0]->id_dusun)->get();
-
+        $data_penduduks=App\data_penduduk::where('id_dusun',$kode_area_dusuns[0]->id_dusun)->get();
 		return view('adminkadus',['users'=> $users ,'data_penduduks' => $data_penduduks,'kode_area_dusuns' => $kode_area_dusuns]);
 	}elseif(Auth::user()->roles == "member" && Auth::user()->status == "aktif"){
 		$users= \App\User::find(Auth::user()->id);
 		$barangdesas= \App\barangdesa::where('id_pemilik',Auth::user()->id)->get();
 		$jmlbarang=$barangdesas->count();
-		// $data_penduduks=App\data_penduduk::where('Nomor_KK',Auth::user()->Nomor_KK)->get();
-		$data_penduduks = DB::table('data_penduduks')
-	            ->join('tabel_agamas', 'data_penduduks.Agama', '=', 'tabel_agamas.id')
-	            ->join('tabel_jenis_pekerjaans', 'data_penduduks.Jenis_Pekerjaan', '=', 'tabel_jenis_pekerjaans.id')
-	            ->join('tabel_golongan_darahs', 'data_penduduks.Golongan_Darah', '=', 'tabel_golongan_darahs.id')
-	            ->join('tabel_kewarganegaraans', 'data_penduduks.Kewarganegaraan', '=', 'tabel_kewarganegaraans.id')
-	            ->join('tabel_status_perkawinans', 'data_penduduks.Status_Perkawinan', '=', 'tabel_status_perkawinans.id')
-	            ->join('tabel_pendidikans', 'data_penduduks.Pendidikan', '=', 'tabel_pendidikans.id')
-	            ->join('tabel_jenis_kelamins', 'data_penduduks.Jenis_Kelamin', '=', 'tabel_jenis_kelamins.id')
-	            ->join('tabel_status_hubungan_dalam_keluargas', 'data_penduduks.Status_Hubungan_Dalam_Keluarga', '=', 'tabel_status_hubungan_dalam_keluargas.id')
-	            ->join('kode_data_akta_lahirs', 'data_penduduks.Akta_Lahir', '=', 'kode_data_akta_lahirs.id')
-	            ->join('kode_data_cacats', 'data_penduduks.Cacat', '=', 'kode_data_cacats.id')
-	            ->join('kode_data_cara_kbs', 'data_penduduks.Cara_KB', '=', 'kode_data_cara_kbs.id')
-	            ->select('data_penduduks.*', 'tabel_agamas.agama','tabel_jenis_pekerjaans.jenis_pekerjaan','tabel_golongan_darahs.golongan_darah','tabel_kewarganegaraans.kewarganegaraan','tabel_status_perkawinans.status_perkawinan','tabel_pendidikans.pendidikan','tabel_jenis_kelamins.jenis_kelamin','tabel_status_hubungan_dalam_keluargas.status_hubungan_dalam_keluarga','kode_data_akta_lahirs.akta_lahir','kode_data_cacats.cacat','kode_data_cara_kbs.cara_kb')
-	            ->where('Nomor_KK',Auth::user()->Nomor_KK)->get();
+		$data_penduduks=App\data_penduduk::where('NIK',Auth::user()->NIK)->get();
 		$kode_area_dusuns=App\kode_area_dusun::where('id_dusun',$data_penduduks[0]->Id_Dusun)->get();
-		
+		// 
 		
 		return view('adminwarga',['users'=>$users,'barangdesas'=>$barangdesas,'jmlbarang'=>$jmlbarang,'data_penduduks' => $data_penduduks,'kode_area_dusuns' => $kode_area_dusuns]);
 
