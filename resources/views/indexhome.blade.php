@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
-    <title>Jurang Jaler</title>
+    <title>DOPANG</title>
   </head>
   <body>
 
@@ -22,7 +22,7 @@
     <a class="navbar-brand" href="#">
     <img src="/images/Kabupaten_Lombok_Tengah.png" width="50" height="50" class="d-inline-block align-top" alt="">
     <div id="spacetextlogo">
-    <span id="logotext" class="text-secondary">DESA JURANG JALER</span>
+    <span id="logotext" class="text-secondary">DESA DOPANG</span>
     <span id="logotext2" class="text-secondary">PORTAL RESMI PEMERINTAH DESA</span>
     </div>
   </a>
@@ -56,16 +56,15 @@
       </li>
       <li class="nav-item dropdown ml-auto">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Organisasi desa <br>
+          MASUK <br>
           <span class="bungkusarrow">
             <i class="arrowdown"></i><br><i class="arrowdown arrowke2"></i>
           </span>
         </a>
         <div class="dropdown-menu speech-bubble" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">DAFTAR</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="#">LOGIN</a>
         </div>
       </li>
     </ul>
@@ -79,7 +78,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <h1 id="slogan1">SUGENG RAWUH RING DESA</h1>
-                <h1 id="slogan2">JURANG JALER</h1>
+                <h1 id="slogan2">DOPANG</h1>
             </div>
         </div>
         <div class="row">
@@ -101,7 +100,7 @@
             <div class="col-md-4 text-center">
                 <img src="/images/alamat.png" alt="">
                 <h4>Alamat</h4>
-                <p>Jl. Raya Praya Kopang, Km 05,Jurang Jaler</p>
+                <p>Jl. Raya Praya Kopang, Km 05,DOPANG</p>
             </div>
             <div class="col-md-4 text-center">
                 <img src="/images/telepon.png" alt="">
@@ -125,7 +124,7 @@
       </div>
       <div class="col-md-6">
         <h1>SELAYANG PANDANG</h1>
-        <p>Jurang Jaler adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
+        <p>DOPANG adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
         <a href="{{ url('/profildesa') }}">PROFIL DESA</a>
       </div>
     </div>

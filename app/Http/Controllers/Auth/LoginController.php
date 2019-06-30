@@ -49,7 +49,7 @@ class LoginController extends Controller
         // return ['email'=>$request->{$this->username()},'password'=>$request->password,'status'=>'aktif'];
         $field = filter_var($request->get($this->username()), FILTER_VALIDATE_EMAIL)
             ? $this->username()
-            : 'NIK';
+            : 'Nomor_KK';
 
         return [
             $field => $request->get($this->username()),

@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
-    <title>Jurang Jaler</title>
+    <title>DOPANG</title>
     <style>
         body{
         background-image: url("/images/roman-kraft-260082-unsplash.jpg");
@@ -29,7 +29,7 @@
     <a class="navbar-brand" href="#">
     <img src="/images/Kabupaten_Lombok_Tengah.png" width="50" height="50" class="d-inline-block align-top" alt="">
     <div id="spacetextlogo">
-    <span id="logotext" class="text-secondary">DESA JURANG JALER</span>
+    <span id="logotext" class="text-secondary">DESA DOPANG</span>
     <span id="logotext2" class="text-secondary">PORTAL RESMI PEMERINTAH DESA</span>
     </div>
   </a>

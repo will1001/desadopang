@@ -1,4 +1,4 @@
-
+    
 body{
     background-image: url("/images/bg.jpg");
 
@@ -177,7 +177,7 @@ footer a{
 
 .bungkusarrow{
     position: relative;
-    left: 70px;
+    left: 25px;
     bottom: 13px;
 }
 

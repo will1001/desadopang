@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
-    <title>Jurang Jaler</title>
+    <title>DOPANG</title>
   </head>
    <style>
     body{
@@ -27,7 +27,7 @@
     <a class="navbar-brand" href="#">
     <img src="/images/Kabupaten_Lombok_Tengah.png" width="50" height="50" class="d-inline-block align-top" alt="">
     <div id="spacetextlogo">
-    <span id="logotext" class="text-secondary">DESA JURANG JALER</span>
+    <span id="logotext" class="text-secondary">DESA DOPANG</span>
     <span id="logotext2" class="text-secondary">PORTAL RESMI PEMERINTAH DESA</span>
     </div>
   </a>
@@ -71,7 +71,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <h1 id="slogan1">SUGENG RAWUH RING DESA</h1>
-                <h1 id="slogan2">JURANG JALER</h1>
+                <h1 id="slogan2">DOPANG</h1>
             </div>
         </div>
         <div class="row">
