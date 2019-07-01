@@ -9,7 +9,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title>Desa Perian</title>
+    <title>Desa Dopang</title>
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link rel="apple-touch-icon" href="{{asset('images/apple-touch-icon.png')}}">
@@ -51,7 +51,7 @@
                 <a href="{{url('/')}}" class="navbar-brand logo">
                   <img id="logo" src="images/kabupaten-lombok-timur-ntb (1).png" alt="">
                     <h5><strong>Website Resmi Pemerintah</strong></h5>
-                    <h2>Desa Perian</h2>
+                    <h2>Desa Dopang</h2>
                 </a>
             </div>
             <!--Logo/-->
@@ -96,7 +96,7 @@
                                 <div class="side-icon">
                                     <img src="{{asset('images/location-arrow.png')}}" alt="">
                                 </div>
-                                <p><strong>Alamat: </strong>Jl. Jurusan Montong Gading - Perian, Km 4, Desa Perian.Kode Pos 83664</p>
+                                <p><strong>Alamat: </strong>Jl. Jurusan Montong Gading - Dopang, Km 4, Desa Dopang.Kode Pos 83664</p>
                             </div>
                             <div class="side-icon-box">
                                 <div class="side-icon">
@@ -111,7 +111,7 @@
                                     <img src="{{asset('images/mail-arrow.png')}}" alt="">
                                 </div>
                                 <p><strong>E-mail: </strong>
-                                    <a href="mailto:youremail@example.com">kantor@desaperian.id</a>
+                                    <a href="mailto:youremail@example.com">kantor@desaDopang.id</a>
                                     
                                 </p>
                             </div>

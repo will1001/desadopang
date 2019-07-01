@@ -108,8 +108,8 @@ Route::get('/reloadtabeldusunurutnama/{id}/{pil}',function($id,$pil)
 });
 
 
-Route::get('/profildesa', 'webcontroller@profildesa')->name('profildesa');
-Route::get('/profildesadaftar', 'webcontroller@profildesadaftar');
+Route::get('/loginpage', 'webcontroller@profildesa')->name('loginpage');
+Route::get('/daftarpage', 'webcontroller@profildesadaftar');
 Route::get('/export_data_penduduk', 'webcontroller@export_data_penduduk');
 Route::get('/bumdes', 'webcontroller@bumdes');
 Route::get('/statistik', 'webcontroller@statistik');

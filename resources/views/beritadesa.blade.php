@@ -4,7 +4,7 @@
 
 <section id="berita-desa" class="section-padding">
       <div class="container">
-      <h1 class="text-center">Berita Desa Perian</h1>
+      <h1 class="text-center">Berita Desa Dopang</h1>
       @foreach($beritas as $berita)
       <div class="row">
         <div class="col-md-12">

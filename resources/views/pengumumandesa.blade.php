@@ -5,7 +5,7 @@
 
 <section id="tentang-desa">
       <div class="container">
-      <h1 class="text-center">Pengumuman Desa Perian</h1>
+      <h1 class="text-center">Pengumuman Desa Dopang</h1>
       @foreach($pengumumans as $pengumuman)
       <div class="row">
         <div class="col-md-12">

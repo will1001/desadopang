@@ -62,9 +62,9 @@
           </span>
         </a>
         <div class="dropdown-menu speech-bubble" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{url('/profildesadaftar')}}">DAFTAR</a>
+          <a class="dropdown-item" href="{{url('/daftarpage')}}">DAFTAR</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{url('/profildesa')}}">LOGIN</a>
+          <a class="dropdown-item" href="{{url('/loginpage')}}">LOGIN</a>
         </div>
       </li>
     </ul>
@@ -77,8 +77,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1 id="slogan1">SUGENG RAWUH RING DESA</h1>
-                <h1 id="slogan2">DOPANG</h1>
+                <h1 id="slogan1">SELAMAT DATANG DI DESA</h1>
+                <h1 id="slogan2"><strong>DOPANG</strong></h1>
             </div>
         </div>
         <div class="row">

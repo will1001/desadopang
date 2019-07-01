@@ -8,7 +8,7 @@
 
     <section id="barang-desa">
       <div class="container">
-      <h1 class="text-center">Pasar Online Desa Perian</h1>
+      <h1 class="text-center">Pasar Online Desa Dopang</h1>
       <div class="row">
           <div class="col-xs-6 col-6 col-sm-6 col-md-6">
               <form action="{{url('caribarangdesa')}}" method="post" accept-charset="utf-8">

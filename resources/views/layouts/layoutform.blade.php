@@ -16,14 +16,14 @@
 
 
 
-    <title>Desa Perian</title>
+    <title>Desa Dopang</title>
   </head>
   <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="{{url('/')}}">
-    <img src="{{asset('images/logo.png')}}" width="40" height="50" alt="">  Desa Perian
+    <img src="{{asset('images/logo.png')}}" width="40" height="50" alt="">  Desa Dopang
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -78,7 +78,7 @@
                                 <div class="side-icon">
                                     <img src="{{asset('images/location-arrow.png')}}" alt="">
                                 </div>
-                                <p><strong>Alamat: </strong>Jl. Jurusan Montong Gading - Perian, Km 4, Desa Perian.Kode Pos 83664</p>
+                                <p><strong>Alamat: </strong>Jl. Jurusan Montong Gading - Dopang, Km 4, Desa Dopang.Kode Pos 83664</p>
                             </div>
                             <div class="side-icon-box">
                                 <div class="side-icon">
@@ -93,7 +93,7 @@
                                     <img src="{{asset('images/mail-arrow.png')}}" alt="">
                                 </div>
                                 <p><strong>E-mail: </strong>
-                                    <a href="mailto:youremail@example.com">kantor@desaperian.id</a>
+                                    <a href="mailto:youremail@example.com">kantor@desaDopang.id</a>
                                     
                                 </p>
                             </div>

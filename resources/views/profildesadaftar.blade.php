@@ -52,7 +52,7 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/profildesa') }}">Daftar</a>
+        <a class="nav-link" href="{{ url('/daftarpage') }}">Daftar</a>
         <div class="garisbawah active"></div>
       </li>
     </ul>
@@ -148,7 +148,7 @@
                     </div>
                   <div class="notedaftarform">
                     <p>Sudah Daftar??</p>
-                  <a href="{{url('/profildesa')}}" >Login Disini</a>
+                  <a href="{{url('/loginpage')}}" >Login Disini</a>
                   </div>
             </div>
             <div class="col-md-6 text-center profildesaasd">

@@ -1,48 +1,6 @@
-.mainmenu-area {
-    background-color: #138fc2;
-}
 
-.navbar-default{
- 
-    display: block;
- 
-}
-    nav.navbar{
- 
-    top: 0px;
-    }
+    
 
-}
-
-
-    a#navbarDropdown {
-    background-color: transparent;
-    }
-
-    nav .dropdown-menu{
-        background-color: #fff;
-        font-size: 21px;
-        border-radius: 15px;
-    }
-
-    a.dropdown-item {
-        margin: 1px 1px;
-        padding: 1px 1px;
-        color: #000000 !important;
-    }
-
-    a.dropdown-item:hover {
-        color: #138fc2 !important;
-    }
-
-    #dropdowntabel{
-        font-size: 13px;
-        width: 305px;
-    }
-
-    .mainmenu-area {
-        background-color: #138fc2;
-    }
 
     .tomboladd{
         float: right;
@@ -198,11 +156,7 @@
     padding: 0px 4px;
     width: 161px;
     }
-    .dropdown-menu {
-    min-width: 243px;
-    padding: 11px 0;
-    font-size: 18px;
-    }
+
 
     input#NIKsurat {
         display: inline-block;

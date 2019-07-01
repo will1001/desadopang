@@ -43,7 +43,7 @@ class LoginController extends Controller
     public function logout(Request $request)
 {
     $this->performLogout($request);
-    return redirect()->route('profildesa');
+    return redirect()->route('loginpage');
 }
     /**
      * Get the needed authorization credentials from the request.

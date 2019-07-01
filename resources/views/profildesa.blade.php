@@ -52,7 +52,7 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/profildesa') }}">Login</a>
+        <a class="nav-link" href="{{ url('/loginpage') }}">Login</a>
         <div class="garisbawah active"></div>
       </li>
     </ul>
@@ -97,7 +97,7 @@
                     </div>
                   <div class="noteloginform">
                     <p>Belum Punya Akun??</p>
-                  <a href="{{url('/profildesadaftar')}}" >Buat Disini</a>
+                  <a href="{{url('/daftarpage')}}" >Buat Disini</a>
                   </div>
             </div>
             <div class="col-md-6 text-center profildesaasd">

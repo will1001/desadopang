@@ -9,7 +9,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Title -->
-    <title>Desa Perian</title>
+    <title>Desa Dopang</title>
     <!-- Place favicon.ico in the root directory -->
     <link rel="apple-touch-icon" href="{{asset('images/apple-touch-icon.png')}}">
     <link rel="shortcut icon" type="image/ico" href="{{asset('images/favicon.ico')}}" />
@@ -49,7 +49,7 @@
                 <a href="{{url('/')}}" class="navbar-brand logo">
                   <img id="logo" src="images/kabupaten-lombok-timur-ntb (1).png" alt="">
                     <h5><strong>Website Resmi Pemerintah</strong></h5>
-                    <h2>Desa Perian</h2>
+                    <h2>Desa Dopang</h2>
                 </a>
             </div>
             <!--Logo/-->
@@ -66,7 +66,7 @@
 
     <section id="lembaga" class="section-padding">
       <div class="container">
-      <h1 class="text-center text-uppercase">Badan Permusyawaratan Desa (BPD) Desa Perian</h1>
+      <h1 class="text-center text-uppercase">Badan Permusyawaratan Desa (BPD) Desa Dopang</h1>
        <div class="row">
         <div class="col-md-offset-2 col-md-8">
           <div class="section-heading">
@@ -136,7 +136,7 @@
                                 <div class="side-icon">
                                     <img src="{{asset('images/location-arrow.png')}}" alt="">
                                 </div>
-                                <p><strong>Alamat: </strong>Jl. Jurusan Montong Gading - Perian, Km 4, Desa Perian.Kode Pos 83664</p>
+                                <p><strong>Alamat: </strong>Jl. Jurusan Montong Gading - Dopang, Km 4, Desa Dopang.Kode Pos 83664</p>
                             </div>
                             <div class="side-icon-box">
                                 <div class="side-icon">
@@ -151,7 +151,7 @@
                                     <img src="{{asset('images/mail-arrow.png')}}" alt="">
                                 </div>
                                 <p><strong>E-mail: </strong>
-                                    <a href="mailto:youremail@example.com">kantor@desaperian.id</a>
+                                    <a href="mailto:youremail@example.com">kantor@desaDopang.id</a>
                                     
                                 </p>
                             </div>
