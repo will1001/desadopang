@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/responsive.css') }}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
     <title>Desa Dopang</title>
@@ -78,7 +79,7 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <h1 id="slogan1">SELAMAT DATANG DI DESA</h1>
-                <h1 id="slogan2"><strong>DOPANG</strong></h1>
+                <h1 id="slogan2">DOPANG</h1>
             </div>
         </div>
         <div class="row">
@@ -119,10 +120,10 @@
 <section id="profildesa">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 text-center">
+      <div class="col-md-6 col-sm-12 text-center">
         <img src="/images/clement-guillou-413001-unsplash.jpg" alt="">
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 col-sm-12">
         <h1>SELAYANG PANDANG</h1>
         <p>Desa Dopang adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
       </div>
@@ -136,7 +137,7 @@
      <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
-            <p>&copy;Copyright 2018.made with <i class="far fa-heart"></i> by <a href="https://winchy.tech">winchy.tech
+            <p>&copy;Copyright 2019.made with <i class="far fa-heart"></i> by <a href="https://winchy.tech">winchy.tech
           </div>
         </div>
      </div>
