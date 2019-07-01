@@ -84,7 +84,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
-                <a href="{{ url('/profildesa') }}">PROFIL DESA</a>
+                <a href="{{ url('/profildesadopang') }}">PROFIL DESA</a>
                 <div id="pembatas"></div>
                 <div class="btn-group dropright">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">INFO TERBARU</a>

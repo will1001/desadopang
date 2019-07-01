@@ -153,7 +153,7 @@
             </div>
             <div class="col-md-6 text-center profildesaasd">
                 <div class="sloganbox">
-                  <h1 id="slogan1loginregister">SUGENG RAWUH RING DESA</h1>
+                  <h1 id="slogan1loginregister">SELAMAT DATANG DI DESA</h1>
                   <h1 id="slogan2loginregister">DOPANG</h1>
                 </div>
                  <div id="foothomeloginregister">

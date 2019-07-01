@@ -33,7 +33,7 @@ class webcontroller extends Controller
     public function bumdes()
     {
         # code...
-        $bumdess= bumdes::all();
+        $bumdess= profil_desa::all();
         return view("bumdes",['bumdess' => $bumdess]);
     } 
 
@@ -42,6 +42,13 @@ class webcontroller extends Controller
         # code...
         
         return view("kktidakada");
+    } 
+
+     public function profildesadopang()
+    {
+        # code...
+        $profil_desas= profil_desa::all();
+        return view("profildesadopang",['profil_desas' => $profil_desas]);
     } 
 
 

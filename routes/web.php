@@ -16,6 +16,7 @@ Route::get('/kktidakada', 'webcontroller@kktidakada');
 Route::get('/indexberita', 'webcontroller@indexberita');
 Route::get('/indextransparansi', 'webcontroller@indextransparansi');
 Route::get('/indexproduk', 'webcontroller@indexproduk');
+Route::get('/profildesadopang', 'webcontroller@profildesadopang');
 Route::get('/updateumur', 'admincontroller@updateumur');
 
 Route::get('/reloadtabeldatapendudukajax/{id}/{skipdata}',function($id,$skipdata)
