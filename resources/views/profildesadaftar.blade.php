@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/loginregister.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/responsiveloginregister.css') }}">
 
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
@@ -19,6 +20,14 @@
         body{
         background-image: url("/images/profildesa.jpg");
         }
+
+         @media only screen and (min-width: 320px) and (max-width: 479px) { 
+            body{
+              background-image: none;
+            }   
+        }
+
+
     </style>
   </head>
    
@@ -62,7 +71,7 @@
 
 
 <section id="home">
-    <div class="container">
+    <div class="container" style="height: 1099px">
         <div class="row">
             <div class="col-md-6 text-center">
                 <div class="kotakdaftar">

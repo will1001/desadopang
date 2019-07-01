@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/loginregister.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/responsiveloginregister.css') }}">
+
 
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
 
@@ -19,6 +21,13 @@
         body{
         background-image: url("/images/profildesa.jpg");
         }
+
+        @media only screen and (min-width: 320px) and (max-width: 479px) { 
+            body{
+              background-image: none;
+            }   
+        }
+
     </style>
   </head>
    
@@ -63,8 +72,8 @@
 
 <section id="home">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 text-center">
+        <div class="row" style="height: 339px">
+            <div class="col-12 col-sm-12 col-md-6 text-center">
                 <div class="kotaklogin">
                   <form method="POST" action="{{ route('login') }}">
                   @csrf
@@ -100,7 +109,7 @@
                   <a href="{{url('/daftarpage')}}" >Buat Disini</a>
                   </div>
             </div>
-            <div class="col-md-6 text-center profildesaasd">
+            <div class="col-12 col-sm-12 col-md-6 text-center profildesaasd">
               <div class="sloganbox">
                   <h1 id="slogan1loginregister">SELAMAT DATANG DI DESA</h1>
                   <h1 id="slogan2loginregister">DOPANG</h1>
