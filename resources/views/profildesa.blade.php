@@ -124,7 +124,7 @@
                       <div class="col-md-4 text-center">
                           <img src="/images/telepon.png" alt="">
                           <h4>Telepon</h4>
-                          <p>087722208689</p>
+                          <p>xxxxxxxxx</p>
                       </div>
                       <div class="col-md-4 text-center">
                           <img src="/images/email.png" alt="">
