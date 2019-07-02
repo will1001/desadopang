@@ -71,8 +71,8 @@ class webcontroller extends Controller
     public function indexproduk()
     {
         # code...
-        
-        return view("indexproduk");
+        $barangdesas = barangdesa::orderBy('created_at', 'desc')->paginate(30);
+        return view('indexproduk',['barangdesas' => $barangdesas]);
     } 
 
 
