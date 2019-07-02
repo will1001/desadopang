@@ -56,8 +56,8 @@ class webcontroller extends Controller
     public function indexberita()
     {
         # code...
-        
-        return view("indexberita");
+        $beritas= berita::orderBy("created_at","desc")->take(3)->skip(0)->get();
+        return view("indexberita",['beritas' => $beritas]);
     } 
 
     public function indextransparansi()

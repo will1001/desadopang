@@ -2,26 +2,7 @@
 
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
 
-        .navbar-nav {
-            font-size: 12px;
-        }
 
-
-         #logo {
-        height: 7vh;
-        bottom: 2vh;
-        }
-
-        .navbar-brand p {
-        right: -5vw;
-        bottom: 8vh;
-        }
-
-        .navbar-brand span {
-        left: 5vw;
-        bottom: 9vh;
-        font-size: 17px;
-        }
 
 
 
@@ -35,46 +16,6 @@
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
 
-        .navbar-nav {
-            font-size: 11px;    
-        }
-
-        .navbar-nav {
-            float: left;
-            font-size: 13px;
-            position: relative;
-            left: 15vw;
-        }
-
-
-        #logo {
-        height: 6vh;
-        bottom: 2vh;
-        }
-
-        .navbar-brand p {
-        right: -6vw;
-        bottom: 7vh;
-        font-size: 15px;
-        }
-
-        .navbar-brand span {
-        left: 8vw;
-        bottom: 7vh;
-        font-size: 23px;
-        }
-
-        #Pengumuman{
-        left: 57vw;
-        }
-
-        #tombolpengumuman {
-        left: 57vw;
-        }
-
-        #agenda img {
-        height: 210px;
-        }
 
 
 
@@ -90,40 +31,7 @@
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 
-     #Pengumuman{
-    left: 56vw;
-    width: 315px;
-    height: 281px;
-    }
 
-    #logo {
-    height: 15vh;
-    bottom: 4vh;
-    }
-
-    .navbar-brand p {
-    right: -3vw;
-    bottom: 18vh;
-    }
-
-    .navbar-brand span {
-    left: 7vw;
-    bottom: 20vh;
-    }
-
-    #tombolpengumuman {
-    left: 55vw;
-    width: 315px;
-    }
-
-    #agenda img {
-    left: 26vw;
-   }
-
-   #pilihankadus {
-    position: relative;
-    top: 7vh;
-    }
 
 
 
@@ -132,88 +40,32 @@
 
     
 @media only screen and (min-width: 320px) and (max-width: 479px) {
-    
-    .intro-text h1 {
-    font-size: 32px;
-    }
 
-
-    #Pengumuman{
+#wrapper #content-wrapper {
+    overflow-x: hidden;
     width: 100%;
-    left: 0vw;
-    height: 251px;
-    }
+    padding-top: 1rem;
+    padding-bottom: 80px;
+    margin-left: 78px;
+}
 
-    #tombolpengumuman {
-    width: 100%;
-    left: 0vw;
-    }
-
-
-    .navbar-brand p {
-    font-size: 11px;
-    right: -11vw;
-    bottom: 10vh;
-    }
-
-    .navbar-brand span {
-    left: 14vw;
-    bottom: 11vh;
-    }
-
-    nav span {
+h1{
     font-size: 17px;
-    }
+}
 
-    .navbar-nav {
-    float: none;
-    }
+.tomboladd {
+    padding: 5px 5px;
+    margin: 18px 10px;
+    font-size: 15px;
+}
 
-    #tombol_search {
-    position: relative;
-    right: -5px;
-    top: 6px;
-    }
+#spacetextlogo{
+    display: none!important;
+}
 
-    .search {
-    position: relative;
-    left: 3px;
-    top: 9px;
-    width: 121px;
-    }
-
-    #filter {
-    position: relative;
-    right: 122px;
-    bottom: 16px;
-   }
-
-   input#search {
-    width: 119px;
-    }
-
-    #logo {
-    height: 7vh;
-    bottom: 19px;
-    left: 5px;
-   }
-
-   .mainmenu-area .logo h2 {
-    left: 13px;
-    margin-bottom: 0;
-    font-size: 18px;
-    position: relative;
-    top: -1vh;
-    width: 212px;
-   }
-
-   .mainmenu-area .logo h5 {
-    left: 12px;
-    }
-
-    span.icon-bar {
-    background-color: white;
-    }
+#logo {
+    margin: 0px 4px!important;
+}
 
     
 

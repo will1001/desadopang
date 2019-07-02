@@ -56,7 +56,7 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/indexproduk') }}">produk</a>
+        <a class="nav-link" href="{{ url('/indexproduk') }}">BUMDES</a>
         <div class="garisbawah active"></div>
       </li>
       

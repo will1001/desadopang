@@ -12,26 +12,7 @@
 /* Tablet Layout: 768px. */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-    #foothome {
-        margin-top: 55%;
-    }
 
-    #profildesa img {
-
-        width: 100%;
-    }
-
-    .h1, h1 {
-
-        font-size: 2.0rem;
-
-    }
-
-    #profildesa p {
-
-        font-size: 13px;
-
-    }
    
 }
 
@@ -54,42 +35,31 @@
 
     
     @media only screen and (min-width: 320px) and (max-width: 479px) {
-    
+
     .garisbawah.active {
         display: none;
     }
+    
 
-    .ml-auto, .mx-auto {
 
-    margin-right: 191px;
-
+    .slideshowgambar .active {
+    transform: scale(1.2);
+    box-shadow: 10px 10px 10px #000;
+    transition: 1s;
+    }
+    .slideshowgambar img {
+        width: 100px;
+        height: 100px;
+        margin: 0px 19px;
+        margin-left: -9px;
     }
 
-    #pembatas{
-        display: none;
+    h3{
+        font-size: 18px;
     }
-
-    #home a{
-        margin: 26px 0px;
-    }
-
-    #profildesa img {
-
-        width: 100%;
-        margin: 10px 0px;
-
-    }
-
-    .h1, h1 {
-
-        font-size: 1.5rem;
-
-    }
-
-    #profildesa p {
-
-        font-size: 13px;
-
+    
+    p {
+    font-size: 11px;
     }
 
     

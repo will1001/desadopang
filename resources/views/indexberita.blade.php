@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('/css/style2.css') }}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Open+Sans?selection.family=Open+Sans">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/responsiveindexberita.css') }}">
+
 
     <title>Desa Dopang</title>
     <style>
@@ -58,7 +60,7 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/indexproduk') }}">produk</a>
+        <a class="nav-link" href="{{ url('/indexproduk') }}">BUMDES</a>
         <div class="garisbawah"></div>
       </li>
       
@@ -74,25 +76,25 @@
             <div class="col-md-6 text-center">
                 
             </div>
-            <div class="col-md-6 text-center">
+            <div class="col-12 col-sm-12 col-md-6 text-center">
                 <div class="row slideshowgambar">
-                  <div class="col-md-4">
-                    <img src="/images/bg.jpg" alt="" :class="{ active : active_el == 0 }">
+                  @foreach($beritas as $key=>$berita)
+                  <div class="col-4 col-sm-4 col-md-4">
+                    <img src="{{ $berita->urlgambar }}" alt="" :class="{ active : active_el == {{ $key++ }} }">
                   </div>
-                  <div class="col-md-4">
-                    <img src="/images/bg.jpg" alt="" :class="{ active : active_el == 1 }">
-                  </div>
-                  <div class="col-md-4">
-                    <img src="/images/bg.jpg" alt="" :class="{ active : active_el == 2 }">
-                  </div>
+                  @endforeach
                 </div>
               <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-12 col-sm-12 col-md-12 text-center">
                   <div class="arrow-left text-center"  @click="activateleft();"></div>
                   <div class="arrow-right text-center" @click="activateright();"></div>
                   <br><br><br>
-                  <h3>Pemberian Bantuan Kepala Desa</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam perferendis illum veniam explicabo vitae modi quasi rerum culpa accusamus magni corporis libero dolor optio iure, delectus laudantium. Nesciunt architecto, impedit?</p>
+                  @foreach($beritas as $key=>$berita)
+                  <div v-if="active_el == {{ $key++ }}">
+                  <a href="{{ url('detailberitadesa/' .  $berita->judulberita ) }}"><h3>{{ $berita->judulberita }}</h3></a>
+                  <p>{{ substr($berita->deskripsi,0,200) }} . . .</p>
+                  </div>
+                  @endforeach
                 </div>
               </div>
             </div>
@@ -115,6 +117,7 @@
             data: {
               active_el : 1,
               animasi : 1,
+              deskripsi: 1,
             },
             methods:{
               activateleft:function(){

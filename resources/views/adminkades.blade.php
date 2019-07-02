@@ -21,9 +21,10 @@
   <link href="\admincss\css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="{{asset('css/responsiveadmin.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/table.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/responsiveadmin.css')}}">
+
 
 
   <style>
@@ -143,7 +144,7 @@ position: relative;
     <div id="content-wrapper">
 
       <div class="container-fluid">
-          <section id="tabeldatapendudukkadus"  class="section-padding">
+          <section id="tabeldatapendudukkadus"  class="section-padding" style="padding-top: 0px">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">

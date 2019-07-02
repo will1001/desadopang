@@ -58,7 +58,7 @@
         <div class="garisbawah active"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/indexproduk') }}">produk</a>
+        <a class="nav-link" href="{{ url('/indexproduk') }}">BUMDES</a>
         <div class="garisbawah"></div>
       </li>
       
@@ -76,13 +76,13 @@
             </div>
             <div class="col-md-6 text-center asd">
                 <ul>
-                  <li><a href="">Anggaran Pendapatan dan Belanja Daerah (APBD)</a></li>
+                  <li><a href="/transparansi/apbd">Anggaran Pendapatan dan Belanja Daerah (APBD)</a></li>
                   <div class="garistransparansi"></div>
                   <br><br><br><br><br>
-                  <li><a href="">Rencana Pembangunan Jangka Menengah (RKP)</a></li>
+                  <li><a href="/transparansi/rkp">Rencana Pembangunan Jangka Menengah (RKP)</a></li>
                   <div class="garistransparansi"></div>
                   <br><br><br><br><br>
-                  <li><a href="">Rencana Kerja Pemerintah (RPJM)</a></li>
+                  <li><a href="/transparansi/rpjm">Rencana Kerja Pemerintah (RPJM)</a></li>
                   <div class="garistransparansi"></div>
                   <br><br><br><br><br>
                 </ul>
