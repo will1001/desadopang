@@ -101,7 +101,7 @@
             <div class="col-md-4 text-center">
                 <img src="/images/alamat.png" alt="">
                 <h4>Alamat</h4>
-                <p>Jl. Raya Praya Kopang, Km 05,DOPANG</p>
+                <p>Jl. Makam Batu Riti , Desa, Dopang, Kecamatan Gunug Sari ,KAbupaten Lombok Barat ,Nusa Tenggara Barat.83351</p>
             </div>
             <div class="col-md-4 text-center">
                 <img src="/images/telepon.png" alt="">
@@ -111,7 +111,7 @@
             <div class="col-md-4 text-center">
                 <img src="/images/email.png" alt="">
                 <h4>Email</h4>
-                <p>jurangjaler@gmail.com</p>
+                <p>desadopang@gmail.com</p>
             </div>    
         </div>    
     </div>
@@ -125,7 +125,7 @@
       </div>
       <div class="col-md-6 col-sm-12">
         <h1>SELAYANG PANDANG</h1>
-        <p>Desa Dopang adalah salah satu desa yang terletak di kecamatan Praya Tengah, kabupaten Lombok Tengah. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
+        <p>Desa Dopang adalah salah satu desa yang terletak di kecamatan Gunung Sari, kabupaten Lombok Barat. Sebagian besar penduduk kami bersuku sasak, dengan hasil tani penduduk berupa kopi, kelapa, kakao, jagung, dll. <br><br> Semakin dekat dengan masyarakat adalah prioritas kami selaku pemerintah desa agar dapat memberikan pelayanan yang semaksimal mungkin.</p>
       </div>
     </div>
   </div>

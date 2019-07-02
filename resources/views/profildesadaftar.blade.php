@@ -170,7 +170,7 @@
                         <div class="col-md-4 text-center">
                             <img src="/images/alamat.png" alt="">
                             <h4>Alamat</h4>
-                            <p>Jl. Raya Praya Kopang, Km 05,DOPANG</p>
+                            <p>Jl. Makam Batu Riti , Desa, Dopang, Kecamatan Gunug Sari ,KAbupaten Lombok Barat ,Nusa Tenggara Barat.83351</p>
                         </div>
                         <div class="col-md-4 text-center">
                             <img src="/images/telepon.png" alt="">
@@ -180,7 +180,7 @@
                         <div class="col-md-4 text-center">
                             <img src="/images/email.png" alt="">
                             <h4>Email</h4>
-                            <p>jurangjaler@gmail.com</p>
+                            <p>desadopang@gmail.com</p>
                         </div>    
                     </div>    
                 </div>
