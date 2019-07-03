@@ -1,0 +1,66 @@
+/* Medium Layout: 1280px. */
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+
+
+
+
+
+
+
+}
+
+
+/* Tablet Layout: 768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+
+
+
+
+
+
+ 
+}
+
+
+
+/* Wide Mobile Layout: 480px. */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+
+
+
+
+}
+
+
+    
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+.garisbawah.active {
+        display: none;
+    }
+
+    .h5, h5 {
+    font-size: 13px;
+}
+
+#home .asd {
+        bottom: 83px;
+    right: 18px;
+}
+#home ul li {
+    font-size: 13px;
+}
+
+.garistransparansi {
+    width: 318px;
+}
+
+    
+
+    
+}

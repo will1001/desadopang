@@ -170,7 +170,7 @@
                         <div class="col-md-4 text-center">
                             <img src="/images/alamat.png" alt="">
                             <h4>Alamat</h4>
-                            <p>Jl. Makam Batu Riti , Desa, Dopang, Kecamatan Gunug Sari ,KAbupaten Lombok Barat ,Nusa Tenggara Barat.83351</p>
+                            <p>Jl. Makam Batu Riti , Desa Dopang, Kecamatan Gunung Sari ,Kabupaten Lombok Barat ,Nusa Tenggara Barat.83351</p>
                         </div>
                         <div class="col-md-4 text-center">
                             <img src="/images/telepon.png" alt="">
