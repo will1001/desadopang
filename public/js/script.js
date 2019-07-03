@@ -1,14 +1,14 @@
 $(window).scroll(function () {
-	$('nav').toggleClass('scrolled',$(this).scrollTop() > 500);
+    $('nav').toggleClass('scrolled',$(this).scrollTop() > 500);
 });
 
 $(window).scroll(function () {
-	$('ul.navbar-nav.ml-auto').toggleClass('scrolled',$(this).scrollTop() > 500);
+    $('ul.navbar-nav.ml-auto').toggleClass('scrolled',$(this).scrollTop() > 500);
 });
 
 $(document).ready(function(){
   $(".nav-link").on('click', function(event) {
-console.log("oke");
+
 
     if (this.hash !== "") {
       event.preventDefault();
@@ -34,7 +34,6 @@ $("#logBPD").hover(function(){
  });
 
 $("#logLPMD").hover(function(){
-	console.log("oke");
     $('#LPMDshow').fadeToggle(1000);
  });
 
@@ -96,6 +95,27 @@ function loadTabelDataPenduduk(data) {
         $('#trtabel'+j+'').append('<td id="Hamil'+j+'"></td>');
         $('#trtabel'+j+'').append('<td id="Status_kependudukan'+j+'"></td>');
         $('#trtabel'+j+'').append('<td id="Keterangan'+j+'"></td>');        
+        $('#trtabel'+j+'').append('<td id="tempat_mendapatkan_air_bersih'+j+'"></td>');        
+        $('#trtabel'+j+'').append('<td id="status_gizi_balita'+j+'"></td>');        
+        $('#trtabel'+j+'').append('<td id="kebiasaan_berobat_bila_sakit'+j+'"></td>');  
+
+        if(this.foto_ktp==null && this.foto_kk==null ){
+        $('#trtabel'+j+'').append('<td id="foto_ktp'+j+'"><a href="'+this.foto_ktp+'"></a></td>');        
+        $('#trtabel'+j+'').append('<td id="foto_kk'+j+'"><a href="'+this.foto_kk+'"></a></td>');
+        }
+        if(this.foto_ktp==null && this.foto_kk!=null){
+        $('#trtabel'+j+'').append('<td id="foto_ktp'+j+'"><a href="'+this.foto_ktp+'"></a></td>');        
+        $('#trtabel'+j+'').append('<td id="foto_kk'+j+'"><a href="'+this.foto_kk+'">lihat</a></td>');
+        }
+        if(this.foto_ktp!=null && this.foto_kk==null){
+        $('#trtabel'+j+'').append('<td id="foto_ktp'+j+'"><a href="'+this.foto_ktp+'">lihat</a></td>');        
+        $('#trtabel'+j+'').append('<td id="foto_kk'+j+'"><a href="'+this.foto_kk+'"></a></td>');
+        }
+        if(this.foto_ktp!=null && this.foto_kk!=null){
+        $('#trtabel'+j+'').append('<td id="foto_ktp'+j+'"><a href="'+this.foto_ktp+'">lihat</a></td>');        
+        $('#trtabel'+j+'').append('<td id="foto_kk'+j+'"><a href="'+this.foto_kk+'">lihat</a></td>');
+        }      
+                
         $('#trtabel'+j+'').append('<td><a href="formeditdatapendudukkades/'+this.NIK+'/'+this.Id_Dusun+'">edit</a></td>');        
         $('#trtabel'+j+'').append('<td><a href="deletedatapendudukkades/'+this.NIK+'/'+this.Id_Dusun+'">hapus</a></td>');        
 
@@ -106,19 +126,19 @@ function loadTabelDataPenduduk(data) {
         $('#Nama'+j+'').append(this.Nama);
         $('#Nomor_KK'+j+'').append(this.Nomor_KK);
         $('#NIK'+j+'').append(this.NIK);
-        $('#Jenis_Kelamin'+j+'').append(this.Jenis_Kelamin);
+        $('#Jenis_Kelamin'+j+'').append(this.jenis_kelamin);
         $('#Tempat_Lahir'+j+'').append(this.Tempat_Lahir);
         $('#Tanggal_Lahir'+j+'').append(this.Tanggal_Lahir);
         $('#Usia'+j+'').append(this.Usia);
-        $('#Agama'+j+'').append(this.Agama);
-        $('#Pendidikan'+j+'').append(this.Pendidikan);
-        $('#Jenis_Pekerjaan'+j+'').append(this.Jenis_Pekerjaan);
-        $('#Status_Perkawinan'+j+'').append(this.Status_Perkawinan);
-        $('#Status_Hubungan_Dalam_Keluarga'+j+'').append(this.Status_Hubungan_Dalam_Keluarga);
-        $('#Kewarganegaraan'+j+'').append(this.Kewarganegaraan);
+        $('#Agama'+j+'').append(this.agama);
+        $('#Pendidikan'+j+'').append(this.pendidikan);
+        $('#Jenis_Pekerjaan'+j+'').append(this.jenis_pekerjaan);
+        $('#Status_Perkawinan'+j+'').append(this.status_perkawinan);
+        $('#Status_Hubungan_Dalam_Keluarga'+j+'').append(this.status_hubungan_dalam_keluarga);
+        $('#Kewarganegaraan'+j+'').append(this.kewarganegaraan);
         $('#Nama_Ayah'+j+'').append(this.Nama_Ayah);
         $('#Nama_Ibu'+j+'').append(this.Nama_Ibu);
-        $('#Golongan_Darah'+j+'').append(this.Golongan_Darah);
+        $('#Golongan_Darah'+j+'').append(this.golongan_darah);
         $('#Akta_Lahir'+j+'').append(this.Akta_Lahir);
         $('#No_Paspor'+j+'').append(this.No_Paspor);
         $('#Tanggal_akhir_Paspor'+j+'').append(this.Tanggal_akhir_Paspor);
@@ -134,7 +154,10 @@ function loadTabelDataPenduduk(data) {
         $('#Hamil'+j+'').append(this.Hamil);
         $('#Status_kependudukan'+j+'').append(this.Status_kependudukan);
         $('#Keterangan'+j+'').append(this.Keterangan);
-
+        $('#tempat_mendapatkan_air_bersih'+j+'').append(this.tempat_mendapatkan_air_bersih);
+        $('#status_gizi_balita'+j+'').append(this.status_gizi_balita);
+        $('#kebiasaan_berobat_bila_sakit'+j+'').append(this.kebiasaan_berobat_bila_sakit);
+ 
         j++;
         nomor++;
       });
@@ -144,7 +167,6 @@ var skipdata=0;
 
 $(document).ready(function(){
   $('#pilihankadus').change(function () {
-    console.log("oke");
     skipdata=0;
     nomor=skipdata+1;
     $.get('reloadtabeldatapendudukajax/'+$('#pilihankadus option:selected').val()+'/'+skipdata,loadTabelDataPenduduk);
@@ -213,7 +235,7 @@ $(document).ready(function(){
  $('#tombol_searchkadus').on('click', function() {
     console.log(this.value);
     nomor=1;
-    $.get('caridatakadus/'+document.getElementById("searchkadus").value+'/'+this.value,loadTabelDataPenduduk);
+    $.get('caridatakadus/'+$('#filterkadus option:selected').val()+'/'+document.getElementById("searchkadus").value,loadTabelDataPenduduk);
  });
 });
 
@@ -223,3 +245,4 @@ $(document).ready(function(){
     document.getElementById("tombolbuatsurat").href= $('#pilihsurat option:selected').val()+"/"+document.getElementById("NIKsurat").value; 
  });
 });
+

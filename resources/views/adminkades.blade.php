@@ -12,13 +12,13 @@
   <title>Desa Dopang</title>
 
   <!-- Custom fonts for this template-->
-  <link href="\admincss\vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="/admincss/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="\admincss\vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="/admincss/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="\admincss\css/sb-admin.css" rel="stylesheet">
+  <link href="/admincss/css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/admin.css')}}">
 
 
@@ -145,131 +145,131 @@ position: relative;
 
       <div class="container-fluid">
           <section id="tabeldatapendudukkadus"  class="section-padding" style="padding-top: 0px">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-12">
-            <h1>Tabel data Penduduk Desa Dopang</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-12 col-sm-6 col-md-6">
-            <select id="pilihankadus">
-                 <option selected="true" disabled="disabled">Dusun</option>
-                 @foreach ($kode_area_dusuns as $kode_area_dusun)
-                    <option value="{{ $kode_area_dusun->id_dusun }}">{{ $kode_area_dusun->Nama_Dusun }}</option>
-                 @endforeach
-            </select>
-          </div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1>Tabel data Penduduk Desa Dopang</h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-12 col-sm-6 col-md-6">
+                  <select id="pilihankadus">
+                       <option selected="true" disabled="disabled">Dusun</option>
+                       @foreach ($kode_area_dusuns as $kode_area_dusun)
+                          <option value="{{ $kode_area_dusun->id_dusun }}">{{ $kode_area_dusun->Nama_Dusun }}</option>
+                       @endforeach
+                  </select>
+                </div>
 
-          <div class="col-xs-12 col-12 col-sm-6 col-md-6 search-posisi">
-            <button id="tombol_search">Search</button>  
-            <div class="search">
-            <input type="text"  id="search" name="search" placeholder=". . ." ></input>
+                <div class="col-xs-12 col-12 col-sm-6 col-md-6 search-posisi">
+                  <button id="tombol_search">Search</button>  
+                  <div class="search">
+                  <input type="text"  id="search" name="search" placeholder=". . ." >
+                  </div>
+                  <select id="filter">
+                       <option selected="true" disabled="disabled">Cari Berdasarkan</option>
+                        <option value="Nama">Nama</option>
+                        <option value="NIK">NIK</option>
+                        <option value="Pendidikan">Pendidikan</option>
+                        <option value="Status_Perkawinan">status Perkawinan</option>
+                        <option value="Golongan_Darah">Golongan Darah</option>
+                  </select>
+                  
+                </div>
+
+              </div>
+
+            <div class="row">
+                <div class="col-md-12">      
+            <div style="overflow: auto;max-height: 400px;position: relative;  ">
+            <table id="tabeldatakadus">
+            <thead>
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <col width="1000px">
+              <tr>
+                        <th>No</th>
+                        <th>Alamat</th>
+                        <th>RW</th>
+                        <th>RT</th>
+                        <th id="nama_tombol">Nama</th>
+                        <th>Nomor KK</th>
+                        <th>Nomor NIK</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Usia</th>
+                        <th>Agama</th>
+                        <th>Pendidikan</th>
+                        <th>Jenis Pekerjaan</th> 
+                        <th>Status Perkawinan</th> 
+                        <th>Status Hubungan Dalam Keluarga</th> 
+                        <th>Kewarganegaraan</th> 
+                        <th>Nama Ayah</th> 
+                        <th>Nama Ibu</th> 
+                        <th>Golongan Darah</th> 
+                        <th>Akta Lahir</th> 
+                        <th>Nomor Dokumen Paspor</th>
+                        <th>Tanggal Akhir Paspor</th>  
+                        <th>Nomor Dokumen KITAS</th>             
+                        <th>NIK Ayah</th> 
+                        <th>NIK Ibu</th> 
+                        <th>No Akta Perkawinan</th> 
+                        <th>Tanggal Perkawinan</th> 
+                        <th>No Akta Perceraian</th> 
+                        <th>Tanggal Perceraian</th> 
+                        <th>Cacat</th> 
+                        <th>Cara KB</th> 
+                        <th>Hamil</th> 
+                        <th>Status kependudukan</th> 
+                        <th>Keterangan</th>  
+                        <th>edit</th> 
+                        <th>hapus</th> 
+              </tr>
+            </thead>
+             <tbody id="tbodytabel">
+            </tbody>
+          </table>
+                </div>
+                <a href="#" class="previous">&laquo; Previous</a>
+                <a href="#" class="next">Next &raquo;</a>
+                <a href="{{url('formadddatapendudukkades')}}" class="tomboladd">Tambah Data</a>
+              </div>
+              </div>
             </div>
-            <select id="filter">
-                 <option selected="true" disabled="disabled">Cari Berdasarkan</option>
-                  <option value="Nama">Nama</option>
-                  <option value="NIK">NIK</option>
-                  <option value="Pendidikan">Pendidikan</option>
-                  <option value="Status_Perkawinan">status Perkawinan</option>
-                  <option value="Golongan_Darah">Golongan Darah</option>
-            </select>
-            
-          </div>
-
-        </div>
-
-      <div class="row">
-          <div class="col-md-12">      
-      <div style="overflow: auto;max-height: 400px;position: relative;  ">
-      <table id="tabeldatakadus">
-      <thead>
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <col width="1000px">
-        <tr>
-                  <th>No</th>
-                  <th>Alamat</th>
-                  <th>RW</th>
-                  <th>RT</th>
-                  <th id="nama_tombol">Nama</th>
-                  <th>Nomor KK</th>
-                  <th>Nomor NIK</th>
-                  <th>Jenis Kelamin</th>
-                  <th>Tempat Lahir</th>
-                  <th>Tanggal Lahir</th>
-                  <th>Usia</th>
-                  <th>Agama</th>
-                  <th>Pendidikan</th>
-                  <th>Jenis Pekerjaan</th> 
-                  <th>Status Perkawinan</th> 
-                  <th>Status Hubungan Dalam Keluarga</th> 
-                  <th>Kewarganegaraan</th> 
-                  <th>Nama Ayah</th> 
-                  <th>Nama Ibu</th> 
-                  <th>Golongan Darah</th> 
-                  <th>Akta Lahir</th> 
-                  <th>Nomor Dokumen Paspor</th>
-                  <th>Tanggal Akhir Paspor</th>  
-                  <th>Nomor Dokumen KITAS</th>             
-                  <th>NIK Ayah</th> 
-                  <th>NIK Ibu</th> 
-                  <th>No Akta Perkawinan</th> 
-                  <th>Tanggal Perkawinan</th> 
-                  <th>No Akta Perceraian</th> 
-                  <th>Tanggal Perceraian</th> 
-                  <th>Cacat</th> 
-                  <th>Cara KB</th> 
-                  <th>Hamil</th> 
-                  <th>Status kependudukan</th> 
-                  <th>Keterangan</th>  
-                  <th>edit</th> 
-                  <th>hapus</th> 
-        </tr>
-      </thead>
-       <tbody id="tbodytabel">
-      </tbody>
-    </table>
-          </div>
-          <a href="#" class="previous">&laquo; Previous</a>
-          <a href="#" class="next">Next &raquo;</a>
-          <a href="{{url('formadddatapendudukkades')}}" class="tomboladd">Tambah Data</a>
-        </div>
-        </div>
-      </div>
-    </section>
+          </section>
 
 
 
@@ -520,24 +520,34 @@ position: relative;
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="\admincss\vendor/jquery/jquery.min.js"></script>
-  <script src="\admincss\vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/admincss/vendor/jquery/jquery.min.js"></script>
+  <script src="/admincss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+ 
 
   <!-- Core plugin JavaScript-->
-  <script src="\admincss\vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/admincss/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Page level plugin JavaScript-->
-  <script src="\admincss\vendor/chart.js/Chart.min.js"></script>
-  <script src="\admincss\vendor/datatables/jquery.dataTables.js"></script>
-  <script src="\admincss\vendor/datatables/dataTables.bootstrap4.js"></script>
+  <script src="/admincss/vendor/chart.js/Chart.min.js"></script>
+  <script src="/admincss/vendor/datatables/jquery.dataTables.js"></script>
+  <script src="/admincss/vendor/datatables/dataTables.bootstrap4.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="\admincss\js/sb-admin.min.js"></script>
+  <script src="/admincss/js/sb-admin.min.js"></script>
 
   <!-- Demo scripts for this page-->
-  <script src="\admincss\js/demo/datatables-demo.js"></script>
-  <script src="\admincss\js/demo/chart-area-demo.js"></script>
-  <script src="js/script.js"></script>
+  <script src="/admincss/js/demo/datatables-demo.js"></script>
+  <script src="/admincss/js/demo/chart-area-demo.js"></script>
+  <script src="{{asset('js/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('js/contact-form.js')}}"></script>
+    <script src="{{asset('js/jquery.parallax-1.1.3.js')}}"></script>
+    <script src="{{asset('js/scrollUp.min.js')}}"></script>
+    <script src="{{asset('js/magnific-popup.min.js')}}"></script>
+    <script src="{{asset('js/wow.min.js')}}"></script>
+    <!--Main-active-JS-->
+    <script src="{{asset('js/main.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
 
 </body>
 

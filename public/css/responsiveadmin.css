@@ -67,6 +67,10 @@ h1{
     margin: 0px 4px!important;
 }
 
+.sidebar .nav-item .dropdown-menu {
+    left: calc(-7px + 0.5rem) !important;
+    top: 53px !important;
+}
     
 
     
