@@ -21,6 +21,9 @@
     background-image: url("/images/bg.jpg");
     height: auto;
     }
+    .active {
+    display: none;
+}
   </style>
   <body>
 

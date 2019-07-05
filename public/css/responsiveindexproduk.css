@@ -46,7 +46,18 @@
 
     .h5, h5 {
     font-size: 13px;
-}
+   }
+
+
+   #detail_berita img {
+    width: 100%;
+    float: left;
+    margin: 10px 0px;
+  }
+
+  h1.text-center {
+    font-size: 24px;
+  }
 
     
 
