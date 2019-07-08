@@ -90,7 +90,8 @@
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">INFO TERBARU</a>
                 <div class="dropdown-menu speech-bubble2" aria-labelledby="navbarDropdown">
                   <h3>Berita Terbaru</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur quisquam tempore quod, amet tenetur id quaerat natus praesentium vero aliquid, soluta earum accusantium similique voluptates cum? Eos modi sunt, quos.</p>
+                  <p>{{$beritas[0]->judulberita}}</p>
+                  <a href="{{ url('/beritadesa') }}">Selengkapnya</a>
                 </div>
                 </div>
             </div>
