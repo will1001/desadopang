@@ -60,8 +60,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_domisili.docx');
-          $hasil   = public_path('storage\surat\surat_ket_domisili_.doc');
+          $file   = public_path('storage/surat/surat_ket_domisili.docx');
+          $hasil   = public_path('storage/surat/surat_ket_domisili_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -120,8 +120,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_domisili.docx');
-          $hasil   = public_path('storage\surat\surat_ket_domisili_.doc');
+          $file   = public_path('storage/surat/surat_ket_domisili.docx');
+          $hasil   = public_path('storage/surat/surat_ket_domisili_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -195,8 +195,8 @@ class suratcontroller extends Controller
           $mytime = Carbon\Carbon::now();
 
         
-          $file   = public_path('storage\surat\surat_ket_pindah_penduduk.docx');
-          $hasil   = public_path('storage\surat\surat_ket_pindah_penduduk_.doc');
+          $file   = public_path('storage/surat/surat_ket_pindah_penduduk.docx');
+          $hasil   = public_path('storage/surat/surat_ket_pindah_penduduk_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -256,8 +256,8 @@ class suratcontroller extends Controller
           $mytime = Carbon\Carbon::now();
 
         
-          $file   = public_path('storage\surat\surat_ket_pindah_penduduk.docx');
-          $hasil   = public_path('storage\surat\surat_ket_pindah_penduduk_.doc');
+          $file   = public_path('storage/surat/surat_ket_pindah_penduduk.docx');
+          $hasil   = public_path('storage/surat/surat_ket_pindah_penduduk_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -936,8 +936,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_bio_penduduk.docx');
-          $hasil   = public_path('storage\surat\surat_bio_penduduk_.doc');
+          $file   = public_path('storage/surat/surat_bio_penduduk.docx');
+          $hasil   = public_path('storage/surat/surat_bio_penduduk_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1004,8 +1004,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_bio_penduduk.docx');
-          $hasil   = public_path('storage\surat\surat_bio_penduduk_.doc');
+          $file   = public_path('storage/surat/surat_bio_penduduk.docx');
+          $hasil   = public_path('storage/surat/surat_bio_penduduk_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1085,8 +1085,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_domisili_usaha_non_warga.docx');
-          $hasil   = public_path('storage\surat\surat_domisili_usaha_non_warga_.doc');
+          $file   = public_path('storage/surat/surat_domisili_usaha_non_warga.docx');
+          $hasil   = public_path('storage/surat/surat_domisili_usaha_non_warga_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1144,8 +1144,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_domisili_usaha_non_warga.docx');
-          $hasil   = public_path('storage\surat\surat_domisili_usaha_non_warga_.doc');
+          $file   = public_path('storage/surat/surat_domisili_usaha_non_warga.docx');
+          $hasil   = public_path('storage/surat/surat_domisili_usaha_non_warga_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1215,8 +1215,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_izin_pengangkutan_kayu.docx');
-          $hasil   = public_path('storage\surat\surat_izin_pengangkutan_kayu_.doc');
+          $file   = public_path('storage/surat/surat_izin_pengangkutan_kayu.docx');
+          $hasil   = public_path('storage/surat/surat_izin_pengangkutan_kayu_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1274,8 +1274,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_izin_pengangkutan_kayu.docx');
-          $hasil   = public_path('storage\surat\surat_izin_pengangkutan_kayu_.doc');
+          $file   = public_path('storage/surat/surat_izin_pengangkutan_kayu.docx');
+          $hasil   = public_path('storage/surat/surat_izin_pengangkutan_kayu_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1346,8 +1346,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_izin_pengangkutan_tanah_urug.docx');
-          $hasil   = public_path('storage\surat\surat_izin_pengangkutan_tanah_urug_.doc');
+          $file   = public_path('storage/surat/surat_izin_pengangkutan_tanah_urug.docx');
+          $hasil   = public_path('storage/surat/surat_izin_pengangkutan_tanah_urug_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1405,8 +1405,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_izin_pengangkutan_tanah_urug.docx');
-          $hasil   = public_path('storage\surat\surat_izin_pengangkutan_tanah_urug_.doc');
+          $file   = public_path('storage/surat/surat_izin_pengangkutan_tanah_urug.docx');
+          $hasil   = public_path('storage/surat/surat_izin_pengangkutan_tanah_urug_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1477,8 +1477,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_beda_identitas_kis.docx');
-          $hasil   = public_path('storage\surat\surat_ket_beda_identitas_kis_.doc');
+          $file   = public_path('storage/surat/surat_ket_beda_identitas_kis.docx');
+          $hasil   = public_path('storage/surat/surat_ket_beda_identitas_kis_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1516,8 +1516,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_beda_identitas_kis.docx');
-          $hasil   = public_path('storage\surat\surat_ket_beda_identitas_kis_.doc');
+          $file   = public_path('storage/surat/surat_ket_beda_identitas_kis.docx');
+          $hasil   = public_path('storage/surat/surat_ket_beda_identitas_kis_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1565,8 +1565,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_beda_nama.docx');
-          $hasil   = public_path('storage\surat\surat_ket_beda_nama_.doc');
+          $file   = public_path('storage/surat/surat_ket_beda_nama.docx');
+          $hasil   = public_path('storage/surat/surat_ket_beda_nama_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1619,8 +1619,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_beda_nama.docx');
-          $hasil   = public_path('storage\surat\surat_ket_beda_nama_.doc');
+          $file   = public_path('storage/surat/surat_ket_beda_nama.docx');
+          $hasil   = public_path('storage/surat/surat_ket_beda_nama_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1683,8 +1683,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_catatan_kriminal.docx');
-          $hasil   = public_path('storage\surat\surat_ket_catatan_kriminal_.doc');
+          $file   = public_path('storage/surat/surat_ket_catatan_kriminal.docx');
+          $hasil   = public_path('storage/surat/surat_ket_catatan_kriminal_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1742,8 +1742,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_catatan_kriminal.docx');
-          $hasil   = public_path('storage\surat\surat_ket_catatan_kriminal_.doc');
+          $file   = public_path('storage/surat/surat_ket_catatan_kriminal.docx');
+          $hasil   = public_path('storage/surat/surat_ket_catatan_kriminal_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1812,8 +1812,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_cerai.docx');
-          $hasil   = public_path('storage\surat\surat_ket_cerai_.doc');
+          $file   = public_path('storage/surat/surat_ket_cerai.docx');
+          $hasil   = public_path('storage/surat/surat_ket_cerai_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1867,8 +1867,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_cerai.docx');
-          $hasil   = public_path('storage\surat\surat_ket_cerai_.doc');
+          $file   = public_path('storage/surat/surat_ket_cerai.docx');
+          $hasil   = public_path('storage/surat/surat_ket_cerai_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1933,8 +1933,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_domisili_usaha.docx');
-          $hasil   = public_path('storage\surat\surat_ket_domisili_usaha_.doc');
+          $file   = public_path('storage/surat/surat_ket_domisili_usaha.docx');
+          $hasil   = public_path('storage/surat/surat_ket_domisili_usaha_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -1988,8 +1988,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_domisili_usaha.docx');
-          $hasil   = public_path('storage\surat\surat_ket_domisili_usaha_.doc');
+          $file   = public_path('storage/surat/surat_ket_domisili_usaha.docx');
+          $hasil   = public_path('storage/surat/surat_ket_domisili_usaha_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2054,8 +2054,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_harga_tanah.docx');
-          $hasil   = public_path('storage\surat\surat_ket_harga_tanah_.doc');
+          $file   = public_path('storage/surat/surat_ket_harga_tanah.docx');
+          $hasil   = public_path('storage/surat/surat_ket_harga_tanah_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2109,8 +2109,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_harga_tanah.docx');
-          $hasil   = public_path('storage\surat\surat_ket_harga_tanah_.doc');
+          $file   = public_path('storage/surat/surat_ket_harga_tanah.docx');
+          $hasil   = public_path('storage/surat/surat_ket_harga_tanah_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2175,8 +2175,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_jamkesos.docx');
-          $hasil   = public_path('storage\surat\surat_ket_jamkesos_.doc');
+          $file   = public_path('storage/surat/surat_ket_jamkesos.docx');
+          $hasil   = public_path('storage/surat/surat_ket_jamkesos_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2231,8 +2231,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_jamkesos.docx');
-          $hasil   = public_path('storage\surat\surat_ket_jamkesos_.doc');
+          $file   = public_path('storage/surat/surat_ket_jamkesos.docx');
+          $hasil   = public_path('storage/surat/surat_ket_jamkesos_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2299,8 +2299,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kehilangan.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kehilangan_.doc');
+          $file   = public_path('storage/surat/surat_ket_kehilangan.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kehilangan_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2354,8 +2354,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kehilangan.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kehilangan_.doc');
+          $file   = public_path('storage/surat/surat_ket_kehilangan.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kehilangan_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2420,8 +2420,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_jual_beli.docx');
-          $hasil   = public_path('storage\surat\surat_ket_jual_beli_.doc');
+          $file   = public_path('storage/surat/surat_ket_jual_beli.docx');
+          $hasil   = public_path('storage/surat/surat_ket_jual_beli_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2459,8 +2459,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_jual_beli.docx');
-          $hasil   = public_path('storage\surat\surat_ket_jual_beli_.doc');
+          $file   = public_path('storage/surat/surat_ket_jual_beli.docx');
+          $hasil   = public_path('storage/surat/surat_ket_jual_beli_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2511,8 +2511,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kelakuan_baik.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kelakuan_baik_.doc');
+          $file   = public_path('storage/surat/surat_ket_kelakuan_baik.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kelakuan_baik_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2570,8 +2570,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kelakuan_baik.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kelakuan_baik_.doc');
+          $file   = public_path('storage/surat/surat_ket_kelakuan_baik.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kelakuan_baik_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2641,8 +2641,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kepemilikan_kendaraan.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kepemilikan_kendaraan_.doc');
+          $file   = public_path('storage/surat/surat_ket_kepemilikan_kendaraan.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kepemilikan_kendaraan_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2695,8 +2695,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kepemilikan_kendaraan.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kepemilikan_kendaraan_.doc');
+          $file   = public_path('storage/surat/surat_ket_kepemilikan_kendaraan.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kepemilikan_kendaraan_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2761,8 +2761,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kepemilikan_tanah.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kepemilikan_tanah_.doc');
+          $file   = public_path('storage/surat/surat_ket_kepemilikan_tanah.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kepemilikan_tanah_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2815,8 +2815,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kepemilikan_tanah.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kepemilikan_tanah_.doc');
+          $file   = public_path('storage/surat/surat_ket_kepemilikan_tanah.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kepemilikan_tanah_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2881,8 +2881,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kurang_mampu.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kurang_mampu_.doc');
+          $file   = public_path('storage/surat/surat_ket_kurang_mampu.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kurang_mampu_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -2936,8 +2936,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_kurang_mampu.docx');
-          $hasil   = public_path('storage\surat\surat_ket_kurang_mampu_.doc');
+          $file   = public_path('storage/surat/surat_ket_kurang_mampu.docx');
+          $hasil   = public_path('storage/surat/surat_ket_kurang_mampu_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3004,8 +3004,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_luar_daerah.docx');
-          $hasil   = public_path('storage\surat\surat_ket_luar_daerah_.doc');
+          $file   = public_path('storage/surat/surat_ket_luar_daerah.docx');
+          $hasil   = public_path('storage/surat/surat_ket_luar_daerah_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3060,8 +3060,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_luar_daerah.docx');
-          $hasil   = public_path('storage\surat\surat_ket_luar_daerah_.doc');
+          $file   = public_path('storage/surat/surat_ket_luar_daerah.docx');
+          $hasil   = public_path('storage/surat/surat_ket_luar_daerah_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3128,8 +3128,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_luar_negeri.docx');
-          $hasil   = public_path('storage\surat\surat_ket_luar_negeri_.doc');
+          $file   = public_path('storage/surat/surat_ket_luar_negeri.docx');
+          $hasil   = public_path('storage/surat/surat_ket_luar_negeri_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3186,8 +3186,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_luar_negeri.docx');
-          $hasil   = public_path('storage\surat\surat_ket_luar_negeri_.doc');
+          $file   = public_path('storage/surat/surat_ket_luar_negeri.docx');
+          $hasil   = public_path('storage/surat/surat_ket_luar_negeri_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3256,8 +3256,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_penduduk.docx');
-          $hasil   = public_path('storage\surat\surat_ket_penduduk_.doc');
+          $file   = public_path('storage/surat/surat_ket_penduduk.docx');
+          $hasil   = public_path('storage/surat/surat_ket_penduduk_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3312,8 +3312,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_penduduk.docx');
-          $hasil   = public_path('storage\surat\surat_ket_penduduk_.doc');
+          $file   = public_path('storage/surat/surat_ket_penduduk.docx');
+          $hasil   = public_path('storage/surat/surat_ket_penduduk_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3379,8 +3379,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_tidak_memiliki_jamkesos.docx');
-          $hasil   = public_path('storage\surat\surat_ket_tidak_memiliki_jamkesos_.doc');
+          $file   = public_path('storage/surat/surat_ket_tidak_memiliki_jamkesos.docx');
+          $hasil   = public_path('storage/surat/surat_ket_tidak_memiliki_jamkesos_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3436,8 +3436,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_tidak_memiliki_jamkesos.docx');
-          $hasil   = public_path('storage\surat\surat_ket_tidak_memiliki_jamkesos_.doc');
+          $file   = public_path('storage/surat/surat_ket_tidak_memiliki_jamkesos.docx');
+          $hasil   = public_path('storage/surat/surat_ket_tidak_memiliki_jamkesos_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3505,8 +3505,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_usaha.docx');
-          $hasil   = public_path('storage\surat\surat_ket_usaha_.doc');
+          $file   = public_path('storage/surat/surat_ket_usaha.docx');
+          $hasil   = public_path('storage/surat/surat_ket_usaha_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3561,8 +3561,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_usaha.docx');
-          $hasil   = public_path('storage\surat\surat_ket_usaha_.doc');
+          $file   = public_path('storage/surat/surat_ket_usaha.docx');
+          $hasil   = public_path('storage/surat/surat_ket_usaha_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3627,8 +3627,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_yatim.docx');
-          $hasil   = public_path('storage\surat\surat_ket_yatim_.doc');
+          $file   = public_path('storage/surat/surat_ket_yatim.docx');
+          $hasil   = public_path('storage/surat/surat_ket_yatim_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);
@@ -3683,8 +3683,8 @@ class suratcontroller extends Controller
 
           $mytime = Carbon\Carbon::now();
         
-          $file   = public_path('storage\surat\surat_ket_yatim.docx');
-          $hasil   = public_path('storage\surat\surat_ket_yatim_.doc');
+          $file   = public_path('storage/surat/surat_ket_yatim.docx');
+          $hasil   = public_path('storage/surat/surat_ket_yatim_.doc');
           $phpWord = new PhpWord();
 
           $docx   = $phpWord->loadTemplate($file);

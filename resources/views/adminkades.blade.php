@@ -79,10 +79,16 @@ position: relative;
   </a>
   </div>
 </div>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="{{url('formsettingkopsurat')}}">
           <i class="fas fa-fw fa-envelope"></i>
           <span>Setting Kop Surat</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#buatsurat">
+          <i class="fas fa-fw fa-envelope"></i>
+          <span>Buat Surat</span>
         </a>
       </li>
       <li class="nav-item dropdown">
@@ -110,8 +116,6 @@ position: relative;
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           
                     <a class="dropdown-item" href="#tabeldatapendudukkadus">Data penduduk</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#buatsurat">Surat</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#tabelberita">Berita</a>
                     <div class="dropdown-divider"></div>
@@ -368,7 +372,7 @@ position: relative;
 
 
 
-      <section id="tabelpengumuman">
+     <!--  <section id="tabelpengumuman">
       <div class="container-fluid">
         <h1>Tabel data Pengumuman Desa</h1>
         <div class="row">
@@ -405,10 +409,10 @@ position: relative;
         </div>
       </div>
     </section>
+ -->
 
 
-
-
+<!-- 
     <section id="profildesaadmin" class="section-padding">
       <div class="container">
         <div class="text-center">
@@ -449,7 +453,7 @@ position: relative;
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
 
     <section id="dataakundesa" class="section-padding tabel5kolom  gray-bg">

@@ -44,7 +44,7 @@
         <div class="garisbawah active"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/indexberita') }}">Berita</a>
+        <a class="nav-link" href="{{ url('/beritadesa') }}">Berita</a>
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
@@ -91,7 +91,7 @@
                 <div class="dropdown-menu speech-bubble2" aria-labelledby="navbarDropdown">
                   <h3>Berita Terbaru</h3>
                   <p>{{$beritas[0]->judulberita}}</p>
-                  <a href="{{ url('/beritadesa') }}">Selengkapnya</a>
+                  <a href="{{ url('/indexberita') }}">Selengkapnya</a>
                 </div>
                 </div>
             </div>
