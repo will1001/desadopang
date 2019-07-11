@@ -55,11 +55,15 @@
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('/indexberita') }}">Berita</a>
+        <a class="nav-link" href="{{ url('/beritadesa') }}">Berita</a>
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/indextransparansi') }}">Transparansi</a>
+        <div class="garisbawah"></div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url('/statistik') }}">Statistik Desa</a>
         <div class="garisbawah"></div>
       </li>
       <li class="nav-item">

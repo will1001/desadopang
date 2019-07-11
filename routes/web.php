@@ -105,6 +105,22 @@ Route::get('/reloadtabeldusunurutnama/{id}/{pil}',function($id,$pil)
 	}
 });
 
+Route::resource('datadusun','APIkodedusunController')->middleware('auth');
+Route::get('datawarga/searchdata/{kategori}/{id}','APIdatapendudukController@searchdata')->middleware('auth');
+Route::resource('datawarga','APIdatapendudukController')->middleware('auth');
+Route::resource('databerita','APIdataberitaController');
+Route::resource('datapengumuman','APIdatapengumumanController');
+Route::resource('datalogin','APIdataloginController')->middleware('auth');
+Route::resource('dataSOTK','APIdataSOTKController');
+Route::resource('dataagenda','APIdataagendaController');
+Route::resource('databarangdesa','APIdatabarangdesaController');
+Route::get('datastatistik/pendidikan/','APIdatastatistikController@pendidikan');
+Route::get('datastatistik/jenis_pekerjaan/','APIdatastatistikController@jenis_pekerjaan');
+Route::get('datastatistik/agama/','APIdatastatistikController@agama');
+Route::get('datastatistik/jenis_kelamin/','APIdatastatistikController@jenis_kelamin');
+Route::get('datastatistik/golongan_darah/','APIdatastatistikController@golongan_darah');
+Route::get('datastatistik/kelompok_umur/','APIdatastatistikController@kelompok_umur');
+Route::resource('datastatistik','APIdatastatistikController');
 
 Route::get('/loginpage', 'webcontroller@profildesa')->name('loginpage');
 Route::get('/daftarpage', 'webcontroller@profildesadaftar');

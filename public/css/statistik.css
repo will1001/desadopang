@@ -1,0 +1,378 @@
+/* Medium Layout: 1280px. */
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+
+        .navbar-nav {
+            font-size: 12px;
+        }
+
+
+         #logo {
+        height: 7vh;
+        bottom: 2vh;
+        }
+
+        .navbar-brand p {
+        right: -5vw;
+        bottom: 8vh;
+        }
+
+        .navbar-brand span {
+        left: 5vw;
+        bottom: 9vh;
+        font-size: 17px;
+        }
+
+
+
+
+
+}
+
+
+/* Tablet Layout: 768px. */
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+        .navbar-nav {
+            font-size: 11px;    
+        }
+
+        .navbar-nav {
+            float: left;
+            font-size: 13px;
+            position: relative;
+            left: 15vw;
+        }
+
+
+        #logo {
+        height: 6vh;
+        bottom: 2vh;
+        }
+
+        .navbar-brand p {
+        right: -6vw;
+        bottom: 7vh;
+        font-size: 15px;
+        }
+
+        .navbar-brand span {
+        left: 8vw;
+        bottom: 7vh;
+        font-size: 23px;
+        }
+
+        #Pengumuman{
+        left: 57vw;
+        }
+
+        #tombolpengumuman {
+        left: 57vw;
+        }
+
+        #agenda img {
+        height: 210px;
+        }
+
+
+
+
+
+
+ 
+}
+
+
+
+/* Wide Mobile Layout: 480px. */
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+     #Pengumuman{
+    left: 56vw;
+    width: 315px;
+    height: 281px;
+    }
+
+    #logo {
+    height: 15vh;
+    bottom: 4vh;
+    }
+
+    .navbar-brand p {
+    right: -3vw;
+    bottom: 18vh;
+    }
+
+    .navbar-brand span {
+    left: 7vw;
+    bottom: 20vh;
+    }
+
+    #tombolpengumuman {
+    left: 55vw;
+    width: 315px;
+    }
+
+    #agenda img {
+    left: 26vw;
+   }
+
+   #pilihankadus {
+    position: relative;
+    top: 7vh;
+    }
+
+
+
+}
+
+
+    
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    
+    html{
+        background-image: none;
+        font-size: 13px;
+        width: 100%;
+        height: auto;
+    }
+
+    body {
+        background-color: transparent;
+        background-image: none;
+        width: 97%;
+        height: auto;
+        
+    }
+
+    h1{
+        font-size: 19px;
+    }
+
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light {
+        margin: -29px 0px;
+    }
+
+    #logotext{
+        font-size: 19px;
+        line-height: 41px
+    }
+
+    #logotext2{
+        font-size: 9px;
+        line-height: 0px
+    }
+
+    #spacetextlogo {
+        margin: -6px 0px;
+    }
+
+    nav img{
+        width: 39px;
+        height: 45px;
+    }
+
+    button.navbar-toggler {
+        position: relative;
+        top: 14px;
+        left: 7px;
+    }
+
+    section{
+        width: 100%;
+    }
+
+    
+    
+    footer{
+        font-size: 13px;
+    }
+
+    .infofooter p{
+            margin: 0px -61px;
+    }
+
+    .Copyrightfooter p{
+            margin: 0px -21px;
+    }
+
+    .tanggalfooter{
+            margin: 0px -9px;
+    }
+
+    
+
+
+
+    #date,#txt{
+        display: inline-block;
+    }
+
+    .dropdown-menu.show {
+        margin: 19px 0px;
+        margin-bottom: 37px;
+    }
+
+    
+   .navbar-light .navbar-brand {
+    margin-left: 1px;
+    }
+
+    
+    .loginregform .card {
+    width: 299px;
+    margin: 67px -76px;
+    }
+
+    .registerform .card {
+    margin: 14px 0px;
+    }
+
+    .loginregform .card-body.text-center {
+    margin: 0px 9px;
+    }
+
+    .loginregform form {
+    width: 100%;
+    }
+
+    .loginregform .form-group.row.mb-0 {
+    position: relative;
+    right: 97px;
+    width: 375px;
+    }
+
+    .input-group-prepend {
+    margin-right: -45px;
+    }
+
+    .container-fluid {
+    padding-right: 0px;
+    padding-left: 3px;
+    }
+
+    #Pengumuman{
+    width: 100%;
+    left: 0vw;
+    height: 251px;
+    }
+
+    #tombolpengumuman {
+    width: 100%;
+    left: 0vw;
+    }
+
+
+    .navbar-brand p {
+    font-size: 11px;
+    right: -11vw;
+    bottom: 10vh;
+    }
+
+    .navbar-brand span {
+    left: 14vw;
+    bottom: 11vh;
+    }
+
+    nav span {
+    font-size: 17px;
+    }
+
+    .navbar-nav {
+    float: none;
+    }
+
+    #tombol_search {
+    position: relative;
+    right: 7px;
+    top: 10px;
+    }
+
+    .search {
+    position: relative;
+    left: 3px;
+    top: 9px;
+    width: 32vw;
+    float: left;
+    }
+
+    #filter {
+    position: relative;
+    right: 3px;
+    bottom: -3px;
+    width: 33vw;
+   }
+
+   input#search {
+    width: 31vw;
+    }
+
+    #logo {
+    height: 7vh;
+    bottom: 19px;
+    left: 5px;
+   }
+
+   .mainmenu-area .logo h2 {
+    left: 13px;
+    margin-bottom: 0;
+    font-size: 18px;
+    position: relative;
+    top: -1vh;
+    width: 287px;
+   }
+
+   .mainmenu-area .logo h5 {
+    left: 12px;
+    }
+
+    span.icon-bar {
+    background-color: white;
+    }
+
+    input#NIKsurat {
+    margin: 15px 0px;
+   }
+
+   a.next {
+    margin: 0px 43px;
+   }
+
+   li.nav-item {
+    padding: 3vh 0vw;
+    }
+
+    #filterkadus,#tombol_searchkadus{
+        margin: 5px 0px;
+    }
+
+    #berita-desa img{
+    width:100%;
+    height:250px;
+}
+
+#berita-desa iframe{
+    width:100%;
+    height:250px;
+}
+
+#detail_berita img{
+    width :100%;
+    height:315px;
+}
+
+#detail_berita iframe{
+    width :100%;
+    height:315px;
+}
+
+.tablestatistik{
+    overflow-x:auto; 
+}
+
+    
+
+}

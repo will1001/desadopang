@@ -119,10 +119,6 @@ position: relative;
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#tabelberita">Berita</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#tabelpengumuman">Pengumuman</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#profildesaadmin">SOTK</a>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#dataakundesa">Data akun Login</a>
         </div>
       </li>
@@ -282,7 +278,7 @@ position: relative;
     <div class="row">
       <div class="col-md-12 text-left">
          <select id="pilihsurat">
-                 <option selected="true" disabled="disabled">Surat</option>
+                 <option selected="true" disabled="disabled">Buat Surat</option>
                     <option value="surat_ket_domisili">Surat Keterang Domisili</option>
                     <option value="surat_ket_pindah_penduduk">Surat Keterangan Pindah</option>
                     <option value="surat_ket_nikah">Surat Keterangan Nikah</option>
