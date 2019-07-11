@@ -19,7 +19,7 @@
     <title>Desa Dopang</title>
     <style>
         body{
-        background-image: url("/images/roman-kraft-260082-unsplash.jpg");
+        background-image: none;
         } 
     </style>
   </head>

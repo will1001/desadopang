@@ -316,8 +316,8 @@ class suratcontroller extends Controller
           // Surat izin keramaian
 
         
-          $file   = public_path('storage\surat/nikah\surat_izin_keramaian.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_izin_keramaian_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_izin_keramaian.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_izin_keramaian_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -373,8 +373,8 @@ class suratcontroller extends Controller
           // Surat izin keramaian
 
         
-          $file   = public_path('storage\surat/nikah\surat_izin_keramaian.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_izin_keramaian_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_izin_keramaian.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_izin_keramaian_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -440,8 +440,8 @@ class suratcontroller extends Controller
         
 
           // surat kehendak nikah
-          $file   = public_path('storage\surat/nikah\surat_kehendak_nikah.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_kehendak_nikah_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_kehendak_nikah.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_kehendak_nikah_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -483,8 +483,8 @@ class suratcontroller extends Controller
         
 
           // surat kehendak nikah
-          $file   = public_path('storage\surat/nikah\surat_kehendak_nikah.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_kehendak_nikah_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_kehendak_nikah.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_kehendak_nikah_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -537,8 +537,8 @@ class suratcontroller extends Controller
 
           // surat keterangan nikah
 
-          $file   = public_path('storage\surat/nikah\surat_ket_nikah.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_ket_nikah_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_ket_nikah.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_ket_nikah_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -583,8 +583,8 @@ class suratcontroller extends Controller
 
           // surat keterangan nikah
 
-          $file   = public_path('storage\surat/nikah\surat_ket_nikah.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_ket_nikah_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_ket_nikah.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_ket_nikah_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -637,8 +637,8 @@ class suratcontroller extends Controller
 
         
           // Surat keterangan Wali
-          $file   = public_path('storage\surat/nikah\surat_ket_wali.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_ket_wali_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_ket_wali.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_ket_wali_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -680,8 +680,8 @@ class suratcontroller extends Controller
 
         
           // Surat keterangan Wali
-          $file   = public_path('storage\surat/nikah\surat_ket_wali.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_ket_wali_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_ket_wali.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_ket_wali_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -733,8 +733,8 @@ class suratcontroller extends Controller
 
          
           // Surat keterangan Wali hakim
-           $file   = public_path('storage\surat/nikah\surat_ket_wali_hakim.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_ket_wali_hakim_.doc');
+           $file   = public_path('storage\surat\Nikah\surat_ket_wali_hakim.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_ket_wali_hakim_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -776,8 +776,8 @@ class suratcontroller extends Controller
 
          
           // Surat keterangan Wali hakim
-           $file   = public_path('storage\surat/nikah\surat_ket_wali_hakim.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_ket_wali_hakim_.doc');
+           $file   = public_path('storage\surat\Nikah\surat_ket_wali_hakim.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_ket_wali_hakim_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -829,8 +829,8 @@ class suratcontroller extends Controller
 
         
           // Surat Persetujuan mempelai
-          $file   = public_path('storage\surat/nikah\surat_persetujuan_mempelai.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_persetujuan_mempelai_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_persetujuan_mempelai.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_persetujuan_mempelai_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
@@ -869,8 +869,8 @@ class suratcontroller extends Controller
 
         
           // Surat Persetujuan mempelai
-          $file   = public_path('storage\surat/nikah\surat_persetujuan_mempelai.docx');
-          $hasil   = public_path('storage\surat/nikah\surat_persetujuan_mempelai_.doc');
+          $file   = public_path('storage\surat\Nikah\surat_persetujuan_mempelai.docx');
+          $hasil   = public_path('storage\surat\Nikah\surat_persetujuan_mempelai_.doc');
           $phpWord = new PhpWord();
 
           $data_penduduks = \DB::table('data_penduduks')
